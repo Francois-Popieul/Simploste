@@ -1,4 +1,4 @@
-import { PayCard } from "./class payCards.js";
+import { PayCard } from "./PayCards.js";
 interface PayementMethode{
 cardType:string;
 cardNumber:string;
