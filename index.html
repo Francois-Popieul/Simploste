@@ -16,12 +16,12 @@
             <section class="sectionWrapper">
               <div class="form-group">
                 <label for="lastName">Nom de Famille :</label>
-                <input type="text" id="lastName" name="lastName" required />
+                <input type="text" id="lastName" name="lastName" required autocomplete="name" />
               </div>
 
               <div class="form-group">
                 <label for="firstName">Prénom :</label>
-                <input type="text" id="firstName" name="firstName" required />
+                <input type="text" id="firstName" name="firstName" required autocomplete="username"/>
               </div>
 
               <div class="form-group">
@@ -52,12 +52,13 @@
                   pattern="[0-9]{10}"
                   placeholder="0601020304"
                   required
+                  autocomplete="mobile"
                 />
               </div>
 
               <div class="form-group">
                 <label for="email">Email :</label>
-                <input type="email" id="email" name="email" required />
+                <input type="email" id="email" name="email" required autocomplete="email"/>
               </div>
             </section>
 
