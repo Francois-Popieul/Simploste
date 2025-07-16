@@ -1,4 +1,4 @@
-import type { AppData } from "./Types.js";
+import type { AppData } from "./Types/AppData.js";
 
 export const data: AppData = {
   destinations: [
