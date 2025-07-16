@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Booking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <main>
+            <div class="container">
+                <h1>Réservation de Voyage</h1>
+                <form id="bookingForm">
+
+                    <section class="sectionWrapper">
+                        <div class="form-group">
+                            <label for="lastName">Nom de Famille :</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="firstName">Prénom :</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Sexe :</label>
+                            <div class="radio-group" id="gender">
+                                <label><input type="radio" name="gender" value="male" required> Homme</label>
+                                <label><input type="radio" name="gender" value="female"> Femme</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Adresse :</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Téléphone :</label>
+                            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="0601020304"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email :</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </section>
+
+                    <section class="sectionWrapper">
+                        <div class="form-group">
+                            <label for="departureDate">Date de départ :</label>
+                            <input type="date" id="departureDate" name="departureDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destination">Destination :</label>
+                            <select id="destination" name="destination" required>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="returnDate">Heure d'arrivée :</label>
+                            <input type="date" id="returnDate" name="returnDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="travelClass">Classe :</label>
+                            <div class="radio-group" id="travelClass">
+                                <label><input type="radio" name="travelClass" value="economy" required> Économie</label>
+                                <label><input type="radio" name="travelClass" value="business"> Affaires</label>
+                                <label><input type="radio" name="travelClass" value="firstClass"> Première
+                                    Classe</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="totalPrice">Prix total (€) :</label>
+                            <input type="text" id="totalPrice" name="totalPrice" readonly>
+                        </div>
+                    </section>
+
+                    <div class="form-group">
+                        <button type="submit">Réserver</button>
+                    </div>
+
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
