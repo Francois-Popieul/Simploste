@@ -1,5 +1,5 @@
 export class PayCard {
-  constructor(private cardNumber: string) {}
+  constructor(private cardNumber: string) { }
 
   private algoLuhn(value: string): boolean {
     //programme tout le tableau avant de faire la bouche
@@ -7,7 +7,7 @@ export class PayCard {
     let sum = 0;
 
     for (let i = 0; i < digits.length; i++) {
-        
+
       let digit = digits[i];
       // Si c'est une position impaire (1, 3, 5...), on le double
       if (i % 2 === 1) {
@@ -22,14 +22,13 @@ export class PayCard {
   }
 
   public isValid(): boolean {
-      const isValid = this.algoLuhn(this.cardNumber);
-      if (!isValid) {
-    alert("Erreur : numéro de carte invalide.");
-    return false; 
-  }
+    const isValid = this.algoLuhn(this.cardNumber);
+    if (!isValid) {
+      alert("Erreur : numéro de carte invalide.");
+      return false;
+    }
 
-  return true;
-}
-    
+    return true;
   }
+}
 
