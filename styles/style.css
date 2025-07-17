@@ -14,7 +14,7 @@ body {
   padding: 1rem;
 }
 
-.pagewrapper {
+.pageWrapper {
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -38,7 +38,7 @@ h1 {
   padding: 1rem 0;
   border-top: 1px solid #ddd;
 }
-.formgroup {
+.formGroup {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
@@ -58,21 +58,22 @@ select {
 input:read-only {
   background-color: #f0f0f0;
 }
-.radiogroup {
+.radioGroup {
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
   padding-top: 0;
 }
-.radiogroup label {
+.radioGroup label {
   font-weight: normal;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-form > .form-group:last-child {
+form > .formGroup:last-child {
   align-items: center;
   margin-top: 2rem;
+  justify-content: center;
 }
 button[type="submit"] {
   padding: 0.75rem 1.5rem;
@@ -90,7 +91,7 @@ button[type="submit"]:hover {
 }
 
 @media (min-width: 768px) {
-  .formgroup {
+  .formGroup {
     flex-direction: row;
     align-items: center;
     gap: 1rem;
@@ -101,7 +102,7 @@ button[type="submit"]:hover {
   }
   input,
   select,
-  .radio-group {
+  .radioGroup {
     flex: 1;            
     width: auto;        
   }

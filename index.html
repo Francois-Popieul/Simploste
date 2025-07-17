@@ -9,23 +9,23 @@
 </head>
 
 <body>
-  <div class="pagewrapper">
+  <div class="pageWrapper">
     <main>
       <div class="container">
         <h1>Réservation de Voyage</h1>
         <form id="bookingForm">
           <section class="sectionWrapper">
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="lastName">Nom de Famille :</label>
-              <input type="text" id="lastName" name="lastName" required autocomplete="name" />
+              <input type="text" id="lastName" name="lastName" placeholder="Dupont" required autocomplete="name" />
             </div>
 
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="firstName">Prénom :</label>
-              <input type="text" id="firstName" name="firstName" required autocomplete="username" />
+              <input type="text" id="firstName" name="firstName" placeholder="Kévin" required autocomplete="username" />
             </div>
 
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="gender">Sexe :</label>
               <div class="radiogroup" id="gender">
                 <label><input type="radio" name="gender" value="male" required />
@@ -35,40 +35,51 @@
               </div>
             </div>
 
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="address">Adresse :</label>
-              <input type="text" id="address" name="address" required />
+              <input type="text" id="address" name="address"placeholder="33 rue de la paix" required />
             </div>
 
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="phone">Téléphone :</label>
               <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="0601020304" required
                 autocomplete="mobile" />
             </div>
 
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="email">Email :</label>
-              <input type="email" id="email" name="email" required autocomplete="email" />
+              <input type="email" id="email" name="email"placeholder="Kévin.Dupont.simplon@gmail.com" required autocomplete="email" />
             </div>
           </section>
 
           <section class="sectionWrapper">
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="departureDate">Date de départ :</label>
               <input type="date" id="departureDate" name="departureDate" required />
             </div>
 
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="destination">Destination :</label>
-              <select id="destination" name="destination" required></select>
+              <select id="destination" name="destination" required>
+                <option value="">--Sélectionner--</option>
+                <option value="Londres">Londres</option>
+                <option value="Berlin">Berlin</option>
+                <option value="Madrid">Mardrid</option>
+                <option value="Rome">Rome</option>
+                <option value="Lisbonne">Lisbonne</option>
+                <option value="Vienne">Vienne</option>
+                <option value="Amsterdam">Amsterdam</option>
+                <option value="Bruxelle">Bruselle</option>
+                <option value="Copenhague">Copenhague</option>
+              </select>
             </div>
 
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="returnDate">Heure d'arrivée :</label>
               <input type="date" id="returnDate" name="returnDate" required />
             </div>
 
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="travelClass">Classe :</label>
               <div class="radiogroup" id="travelClass">
                 <label><input type="radio" name="travelClass" value="economy" required />
@@ -80,13 +91,13 @@
               </div>
             </div>
 
-            <div class="formgroup">
+            <div class="formGroup">
               <label for="totalPrice">Prix total (€) :</label>
               <input type="text" id="totalPrice" name="totalPrice" readonly />
             </div>
           </section>
 
-          <div class="formgroup">
+          <div class="formGroup">
             <button type="submit">Réserver</button>
           </div>
         </form>
