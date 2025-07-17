@@ -1,68 +1,6 @@
-body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-    font-family: 'Patrick Hand', cursive;
-    font-size: 1.2rem; /* Utiliser rem est une meilleure pratique */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Aligner en haut */
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-}
 
-/* --- Conteneur Principal --- */
-main.summaryContainer {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Espace entre les sections */
-}
 
-/* --- Style pour les titres H1 et H2 --- */
-h1, h2 {
-    background-color: #2c2c2c;
-    border: 2px solid #555;
-    border-radius: 12px;
-    padding: 12px 20px;
-    text-align: center;
-    letter-spacing: 0.5px;
-    margin: 0; /* Réinitialiser les marges par défaut des titres */
-    font-size: 1.3rem;
-    font-weight: normal; /* La police est déjà assez grasse */
-}
 
-h2 {
-    margin-top: 10px; /* Ajouter un peu d'espace au-dessus des titres de section */
-}
 
-/* --- Groupe de champs (la boîte qui entoure plusieurs champs) --- */
-section.sectionWrapper {
-    border: 1px solid #444;
-    border-radius: 15px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px; /* Espace entre les champs à l'intérieur du groupe */
-}
 
-/* --- Style pour chaque ligne d'information --- */
-.sectionWrapper div {
-    background-color: #2c2c2c;
-    border: 2px solid #555;
-    border-radius: 12px;
-    padding: 12px 20px;
-    text-align: left; /* Aligner le texte à gauche */
-    display: flex; /* Utiliser flex pour aligner le label et la valeur */
-    justify-content: space-between; /* Mettre de l'espace entre le label et la valeur */
-    align-items: center;
-}
 
-/* --- Style pour les paragraphes qui recevront les données --- */
-.sectionWrapper div p {
-    margin: 0;
-    padding: 0;
-    color: #a0a0a0; /* Une couleur légèrement différente pour les valeurs, comme dans l'image */
-}
