@@ -9,90 +9,97 @@
 </head>
 
 <body>
-  <div class="pagewrapper">
+  <div class="page-wrapper">
     <main>
       <div class="container">
-        <h1>Réservation de Voyage</h1>
+        <h1>Réservation d’un voyage</h1>
         <form id="bookingForm">
           <section class="sectionWrapper">
-            <div class="formgroup">
-              <label for="lastName">Nom de Famille :</label>
-              <input type="text" id="lastName" name="lastName" required autocomplete="name" />
-            </div>
-
-            <div class="formgroup">
-              <label for="firstName">Prénom :</label>
-              <input type="text" id="firstName" name="firstName" required autocomplete="username" />
-            </div>
-
-            <div class="formgroup">
-              <label for="gender">Sexe :</label>
-              <div class="radiogroup" id="gender">
-                <label><input type="radio" name="gender" value="male" required />
-                  Homme</label>
-                <label><input type="radio" name="gender" value="female" />
-                  Femme</label>
+            <fieldset class="fieldset">
+              <legend class="legend">Informations personnelles</legend>
+              <div class="form-group">
+                <label for="lastName">Nom de Famille :</label>
+                <input type="text" id="lastName" name="lastName" required autocomplete="name" />
               </div>
-            </div>
 
-            <div class="formgroup">
-              <label for="address">Adresse :</label>
-              <input type="text" id="address" name="address" required />
-            </div>
+              <div class="form-group">
+                <label for="firstName">Prénom :</label>
+                <input type="text" id="firstName" name="firstName" required autocomplete="username" />
+              </div>
 
-            <div class="formgroup">
-              <label for="phone">Téléphone :</label>
-              <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="0601020304" required
-                autocomplete="mobile" />
-            </div>
+              <div class="form-group">
+                <label for="gender">Sexe :</label>
+                <div class="radio-group" id="gender">
+                  <label><input type="radio" name="gender" value="male" required />
+                    Homme</label>
+                  <label><input type="radio" name="gender" value="female" />
+                    Femme</label>
+                </div>
+              </div>
 
-            <div class="formgroup">
-              <label for="email">Email :</label>
-              <input type="email" id="email" name="email" required autocomplete="email" />
-            </div>
+              <div class="form-group">
+                <label for="address">Adresse :</label>
+                <input type="text" id="address" name="address" required />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Téléphone :</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="0601020304" required
+                  autocomplete="mobile" />
+              </div>
+
+              <div class="form-group">
+                <label for="email">E-mail :</label>
+                <input type="email" id="email" name="email" required autocomplete="email" />
+              </div>
+          </section>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend class="legend">Détails du vol</legend>
+            <section class="sectionWrapper">
+              <div class="form-group">
+                <label for="departureDate">Date de départ :</label>
+                <input type="date" id="departureDate" name="departureDate" required />
+              </div>
+
+              <div class="form-group">
+                <label for="destination">Destination :</label>
+                <select id="destination" name="destination" required></select>
+              </div>
+
+              <div class="form-group">
+                <label for="returnDate">Date d’arrivée :</label>
+                <input type="date" id="returnDate" name="returnDate" required />
+              </div>
+
+              <div class="form-group">
+                <label for="travelClass">Classe :</label>
+                <div class="radio-group" id="travelClass">
+                  <label><input type="radio" name="travelClass" value="economy" required />
+                    Économie</label>
+                  <label><input type="radio" name="travelClass" value="business" />
+                    Affaires</label>
+                  <label><input type="radio" name="travelClass" value="firstClass" />
+                    Première classe</label>
+                </div>
+              </div>
+          </fieldset>
+
+          <div class="form-group">
+            <label for="totalPrice">Prix total (€) :</label>
+            <input type="text" id="totalPrice" name="totalPrice" readonly />
+          </div>
           </section>
 
-          <section class="sectionWrapper">
-            <div class="formgroup">
-              <label for="departureDate">Date de départ :</label>
-              <input type="date" id="departureDate" name="departureDate" required />
-            </div>
-
-            <div class="formgroup">
-              <label for="destination">Destination :</label>
-              <select id="destination" name="destination" required></select>
-            </div>
-
-            <div class="formgroup">
-              <label for="returnDate">Heure d'arrivée :</label>
-              <input type="date" id="returnDate" name="returnDate" required />
-            </div>
-
-            <div class="formgroup">
-              <label for="travelClass">Classe :</label>
-              <div class="radiogroup" id="travelClass">
-                <label><input type="radio" name="travelClass" value="economy" required />
-                  Économie</label>
-                <label><input type="radio" name="travelClass" value="business" />
-                  Affaires</label>
-                <label><input type="radio" name="travelClass" value="firstClass" />
-                  Première Classe</label>
-              </div>
-            </div>
-
-            <div class="formgroup">
-              <label for="totalPrice">Prix total (€) :</label>
-              <input type="text" id="totalPrice" name="totalPrice" readonly />
-            </div>
-          </section>
-
-          <div class="formgroup">
+          <div class="form-group">
             <button type="submit">Réserver</button>
           </div>
         </form>
       </div>
     </main>
   </div>
+  <script type="module" src="./dist/main.js"></script>
 </body>
 
 </html>
