@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Travel Booking</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/payment.css">
+  <meta charset="UTF-8">
+  <title>Travel Booking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/payment.css">
 </head>
 <section class="paymentsection sectionWrapper">
   <h2>Payment</h2>
@@ -24,6 +24,7 @@
     <div class="formGroup">
       <label for="cardNumber">Numéro de carte:</label>
       <input type="text" id="cardNumber" name="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" required>
+      <p id="invalidCardMessage"></p>
     </div>
 
     <div class="formGroup">
@@ -40,13 +41,14 @@
       <button type="submit">Confirmer le payement</button>
       <button type="button" id="resetPayment">Reset</button>
     </div>
-
   </form>
 
   <div id="paymentSummary" class="summary hidden">
-    <h3>Sommaire du payement</h3>
+    <h3>Récapitulatif du paiement</h3>
     <p><strong>Méthode:</strong> <span id="summaryMethod"></span></p>
     <p><strong>Numéro de carte:</strong> <span id="summaryCard"></span></p>
     <p><strong>Expiration:</strong> <span id="summaryExpiry"></span></p>
   </div>
 </section>
+<script type="module" src="./dist/main.js"></script> 
+</body>
