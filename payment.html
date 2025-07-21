@@ -11,12 +11,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles/payment.css">
 </head>
+<section class="paymentsection sectionWrapper">
+  <h2>Payment</h2>
 <section class="paymentSection sectionWrapper">
   <h2>Payment</h2>
 <body>
 <section class="payment-section sectionWrapper">
   <h2>Paiement</h2>
   <form id="paymentForm">
+
+    <div class="formGroup">
 
     <div class="formGroup">
       <label for="cardType">Méthode de payement:</label>
@@ -29,16 +33,19 @@
     </div>
 
     <div class="formGroup">
+    <div class="formGroup">
       <label for="cardNumber">Numéro de carte:</label>
       <input type="text" id="cardNumber" name="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" required>
       <p id="invalidCardMessage"></p>
     </div>
 
     <div class="formGroup">
+    <div class="formGroup">
       <label for="expiryDate">Date d'éxpiration:</label>
       <input type="month" id="expiryDate" name="expiryDate" required>
     </div>
 
+    <div class="formGroup">
     <div class="formGroup">
       <label for="securityCode">Code de sécurité:</label>
       <input type="text" id="securityCode" name="securityCode" maxlength="4" placeholder="123" required>
