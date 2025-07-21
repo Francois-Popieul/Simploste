@@ -8,119 +8,182 @@
   <link rel="stylesheet" href="/styles/style.css" />
 </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Travel Booking</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/styles/style.css" />
-</head>
-
 <body>
 
-  <div class="pageWrapper">
+  <main class="pageWrapper">
 
-    <main>
-      <div class="container">
 
-        <h1>Réservation de Voyage</h1>
+    <div class="container">
 
-        <form id="bookingForm">
+      <h1>Réservation de Voyage</h1>
 
-          <section class="sectionWrapper">
-            <div class="formGroup">
-              <label for="lastName">Nom de Famille :</label>
-              <input type="text" id="lastName" name="lastName" required autocomplete="name" />
-            </div>
-            <div class="formGroup">
-              <label for="firstName">Prénom :</label>
-              <input type="text" id="firstName" name="firstName" required autocomplete="username" />
-            </div>
-            <div class="formGroup">
-              <label for="gender">Sexe :</label>
-              <div class="radioGroup" id="gender">
-                <label><input type="radio" name="gender" value="male" required />
-                  Homme</label>
-                <label><input type="radio" name="gender" value="female" />
-                  Femme</label>
-              </div>
-            </div>
-            <div class="formGroup">
-              <label for="address">Adresse :</label>
-              <input type="text" id="address" name="address" required />
-            </div>
-            <div class="formGroup">
-              <label for="phone">Téléphone :</label>
-              <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="0601020304" required
-                autocomplete="mobile" />
-            </div>
+      <form id="bookingForm">
 
-            <div class="formGroup">
-              <label for="email">Email :</label>
-              <input type="email" id="email" name="email"placeholder="Kévin.Dupont.simplon@gmail.com" required autocomplete="email" />
+        <section class="sectionWrapper">
+          <div class="formGroup">
+            <label for="lastName">Nom de Famille :</label>
+            <input type="text" id="lastName" name="lastName" required autocomplete="name" />
+          </div>
+          <div class="formGroup">
+            <label for="firstName">Prénom :</label>
+            <input type="text" id="firstName" name="firstName" required autocomplete="username" />
+          </div>
+          <div class="formGroup">
+            <label for="gender">Sexe :</label>
+            <div class="radioGroup" id="gender">
+              <label><input type="radio" name="gender" value="male" required />
+                Homme</label>
+              <label><input type="radio" name="gender" value="female" />
+                Femme</label>
             </div>
-          </section>
-          </fieldset>
-
-          <section class="sectionWrapper">
-            <div class="formGroup">
-              <label for="departureDate">Date de départ :</label>
-              <input type="date" id="departureDate" name="departureDate" required />
-            </div>
-
-            <div class="formGroup">
-              <label for="destination">Destination :</label>
-              <select id="destination" name="destination" required>
-                <option value="">--Sélectionner--</option>
-                <option value="Londres">Londres</option>
-                <option value="Berlin">Berlin</option>
-                <option value="Madrid">Mardrid</option>
-                <option value="Rome">Rome</option>
-                <option value="Lisbonne">Lisbonne</option>
-                <option value="Vienne">Vienne</option>
-                <option value="Amsterdam">Amsterdam</option>
-                <option value="Bruxelle">Bruselle</option>
-                <option value="Copenhague">Copenhague</option>
-              </select>
-            </div>
-
-            <div class="formGroup">
-              <label for="returnDate">Heure d'arrivée :</label>
-              <input type="date" id="returnDate" name="returnDate" required />
-            </div>
-
-            <div class="formGroup">
-              <label for="travelClass">Classe :</label>
-              <div class="radiogroup" id="travelClass">
-                <label><input type="radio" name="travelClass" value="economy" required />
-                  Économie</label>
-                <label><input type="radio" name="travelClass" value="business" />
-                  Affaires</label>
-                <label><input type="radio" name="travelClass" value="firstClass" />
-                  Première Classe</label>
-              </div>
-          </fieldset>
-
-            <div class="formGroup">
-              <label for="totalPrice">Prix total (€) :</label>
-              <input type="text" id="totalPrice" name="totalPrice" readonly />
-            </div>
-            </div>
-            <div class="formGroup">
-              <label for="totalPrice">Prix total (€) :</label>
-              <input type="text" id="totalPrice" name="totalPrice" readonly />
-            </div>
-          </section>
+          </div>
+          <div class="formGroup">
+            <label for="address">Adresse :</label>
+            <input type="text" id="address" name="address" required />
+          </div>
+          <div class="formGroup">
+            <label for="phone">Téléphone :</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="0601020304" required
+              autocomplete="mobile" />
+          </div>
 
           <div class="formGroup">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" placeholder="Kévin.Dupont.simplon@gmail.com" required
+              autocomplete="email" />
+          </div>
+        </section>
+        </fieldset>
+
+        <section class="sectionWrapper">
+          <div class="formGroup">
+            <label for="departureDate">Date de départ :</label>
+            <input type="date" id="departureDate" name="departureDate" required />
+          </div>
+
+          <div class="formGroup">
+            <label for="destination">Destination :</label>
+            <select id="destination" name="destination" required>
+              <option value="">--Sélectionner--</option>
+              <option value="Londres">Londres</option>
+              <option value="Berlin">Berlin</option>
+              <option value="Madrid">Mardrid</option>
+              <option value="Rome">Rome</option>
+              <option value="Lisbonne">Lisbonne</option>
+              <option value="Vienne">Vienne</option>
+              <option value="Amsterdam">Amsterdam</option>
+              <option value="Bruxelle">Bruselle</option>
+              <option value="Copenhague">Copenhague</option>
+            </select>
+          </div>
+
+          <div class="formGroup">
+            <label for="returnDate">Heure d'arrivée :</label>
+            <input type="date" id="returnDate" name="returnDate" required />
+          </div>
+
+          <div class="formGroup">
+            <label for="travelClass">Classe :</label>
+            <div class="radiogroup" id="travelClass">
+              <label><input type="radio" name="travelClass" value="economy" required />
+                Économie</label>
+              <label><input type="radio" name="travelClass" value="business" />
+                Affaires</label>
+              <label><input type="radio" name="travelClass" value="firstClass" />
+                Première Classe</label>
+            </div>
+            </fieldset>
+
+            <div class="formGroup">
+              <label for="totalPrice">Prix total (€) :</label>
+              <input type="text" id="totalPrice" name="totalPrice" readonly />
+            </div>
+          </div>
+          <div class="formGroup">
+            <label for="totalPrice">Prix total (€) :</label>
+            <input type="text" id="totalPrice" name="totalPrice" readonly />
+          </div>
+        </section>
+
+        <div class="formGroup">
           <div class="formGroup">
             <button type="submit">Réserver</button>
           </div>
-        </form>
+      </form>
 
+    </div>
+    <section class="paymentsection sectionWrapper">
+      <h2>Payment</h2>
+
+      <form id="paymentForm">
+
+        <div class="formGroup">
+
+          <div class="formGroup">
+            <label for="cardType">Méthode de payement:</label>
+            <select id="cardType" name="cardType" required>
+              <option value="">-- Selectionner un type de carte --</option>
+              <option value="visa">Visa</option>
+              <option value="mastercard">MasterCard</option>
+              <option value="amex">American Express</option>
+            </select>
+          </div>
+
+
+          <div class="formGroup">
+            <label for="cardNumber">Numéro de carte:</label>
+            <input type="text" id="cardNumber" name="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456"
+              required>
+            <p id="invalidCardMessage"></p>
+          </div>
+
+          <div class="formGroup">
+            <label for="expiryDate">Date d'éxpiration:</label>
+            <input type="month" id="expiryDate" name="expiryDate" required>
+          </div>
+
+          <div class="formGroup">
+            <label for="securityCode">Code de sécurité:</label>
+            <input type="text" id="securityCode" name="securityCode" maxlength="4" placeholder="123" required>
+          </div>
+
+          <div class="formGroup">
+            <button type="submit">Confirmer le payement</button>
+            <button type="button" id="resetPayment">Reset</button>
+          </div>
+      </form>
+
+      <div id="paymentSummary" class="summary hidden">
+        <h3>Récapitulatif du paiement</h3>
+        <p><strong>Méthode:</strong> <span id="summaryMethod"></span></p>
+        <p><strong>Numéro de carte:</strong> <span id="summaryCard"></span></p>
+        <p><strong>Expiration:</strong> <span id="summaryExpiry"></span></p>
       </div>
-    </main>
-    
-  </div>
+    </section>
+<h1>Récapitulatif du Voyage</h1>
+
+      <section class="sectionWrapper">
+        <h2>Informations Personnelles</h2>
+        <div class="forename">Prénom :<p id="forename"></p></div>
+        <div class="name">Nom :<p id="name"></p></div>
+        <div class="age">Âge :<p id="age"></p></div>
+        <div class="email">E-mail :<p id="email"></p></div>
+        <div class="phone">Téléphone :<p id="phone"></p></div>
+      </section>
+
+      <section class="sectionWrapper">
+        <h2>Détails du Vol</h2>
+        <div class="departure"><p>Départ :</p><p id="departure"></p></div>
+        <div class="destination">Destination :<p id="destination"></p> </div>
+        <div class="departureDate">Date de départ :<p id="departureDate"></p></div>
+        <div class="estimatedDistance">Distance estimée :<p id="estimatedDistance"></p></div>
+        <div class="standing">Classe sélectionnée :<p id="standing"></p></div>
+        <div class="reservationNumber">Numero de Reservation :<p id="reservationNumber"></p></div>
+        <div class="totalPrice">Prix total :<p id="totalPrice"></p></div>
+      </section>
+
+    </div>
 </body>
+</main>
 
 </html>
