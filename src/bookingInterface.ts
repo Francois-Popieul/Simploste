@@ -7,9 +7,8 @@ export interface Booking {
     phone: FormDataEntryValue | null;
     email: FormDataEntryValue | null;
     flightDate: FormDataEntryValue | null;
-    departureCity: FormDataEntryValue | null;
     destinationCity: FormDataEntryValue | null;
-    arrivalTime: FormDataEntryValue | null;
+    arrivalDate: FormDataEntryValue | null;
     returnDate: FormDataEntryValue | null;
     standing: FormDataEntryValue | null;
     totalPrice: FormDataEntryValue | null;
