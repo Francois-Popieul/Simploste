@@ -16,11 +16,10 @@ if (bookingForm) {
       address: formData.get("address"),
       phone: formData.get("phone"),
       email: formData.get("email"),
-      flightDate: formData.get("departureDate"),
-      arrivalDate: formData.get("arrivalDate"),
+      departureDate: formData.get("departureDate"),
       destinationCity: formData.get("destination"),
       returnDate: formData.get("returnDate"),
-      standing: formData.get("travelClass"),
+      travelClass: formData.get("travelClass"),
       totalPrice: formData.get("totalPrice"),
     }
     console.log(flightData);
