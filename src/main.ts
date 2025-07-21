@@ -9,16 +9,15 @@ if (bookingForm) {
     event.preventDefault();
     const formData = new FormData(bookingForm);
     const flightData: Booking = {
-      forename: formData.get("firstName"),
-      surname: formData.get("lastName"),
+      forename: formData.get("forename"),
+      surname: formData.get("surname"),
       gender: formData.get("gender"),
       birthDate: formData.get("birthDate"),
       address: formData.get("address"),
       phone: formData.get("phone"),
       email: formData.get("email"),
       flightDate: formData.get("departureDate"),
-      departureCity: formData.get("departureDate"),
-      arrivalTime: formData.get("departureDate"),
+      arrivalDate: formData.get("arrivalDate"),
       destinationCity: formData.get("destination"),
       returnDate: formData.get("returnDate"),
       standing: formData.get("travelClass"),
@@ -47,14 +46,14 @@ if (paymentForm) {
     }
     else {
       const card = new PayCard(paymentData.cardNumber);
-      const invalidCardMessage: HTMLElement | null = document.getElementById("invalidCardMessage");
+      const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
 
-      if (card.isValid() && invalidCardMessage) {
-        invalidCardMessage.textContent = 'Carte valide ✅';
-        invalidCardMessage.style.color = 'green';
-      } else if (invalidCardMessage) {
-        invalidCardMessage.textContent = 'Numéro de carte invalide ❌';
-        invalidCardMessage.style.color = 'red';
+      if (card.isValid() && cardValidityMessage) {
+        cardValidityMessage.textContent = "Carte valide ✅";
+        cardValidityMessage.style.color = "green";
+      } else if (cardValidityMessage) {
+        cardValidityMessage.textContent = "Numéro de carte invalide ❌";
+        cardValidityMessage.style.color = "red";
       }
     }
   });
