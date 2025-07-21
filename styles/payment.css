@@ -1,17 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-body {
-  font-family: system-ui, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  background-color: #f4f6f8;
-  color: #333;
-  padding: 1rem;
-}
 
 .container {
   padding: 1rem;
@@ -79,25 +66,9 @@ button[type="submit"] {
   transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-  background-color: #005fa3;
-}
-.sectionWrapper {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: #fff;
-  border-radius: 8px;
-}
 
-.summary {
-  margin-top: 2rem;
-  padding: 1rem;
-  border: 2px solid #4caf50;
-  background-color: #e6ffee;
-  border-radius: 5px;
-}
 
-.hidden {
-  display: none;
-}
+
+
+
+
