@@ -1,6 +1,7 @@
 import { PayCard } from "./PayCards.js";
 import { PaymentMethod } from "./paymentMethodInterface.js";
 import { Booking } from "./bookingInterface.js";
+import { EconomyClassFactory } from "./abstractclassfactory.js";
 
 const bookingForm: HTMLFormElement = document.getElementById("bookingForm") as HTMLFormElement;
 
@@ -21,9 +22,19 @@ if (bookingForm) {
       returnDate: formData.get("returnDate"),
       travelClass: formData.get("travelClass"),
       totalPrice: formData.get("totalPrice"),
-    }
-    console.log(flightData);
-  })
+    };
+    
+    console.log(" Données du formulaire de réservation :");
+     console.log(flightData);
+
+   
+    const economyClass = EconomyClassFactory.create(flightData);
+    console.log(" Instance créée par EconomyClassFactory :", economyClass.constructor.name);
+    const summary = economyClass.getSummary();
+    console.log(" Résumé de la réservation :");
+    summary.forEach(line => console.log(line));
+    console.log(summary.join("\n"));
+  });
 }
 
 const paymentForm: HTMLFormElement = document.getElementById("paymentForm") as HTMLFormElement;
