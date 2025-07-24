@@ -28,6 +28,26 @@ if (bookingForm) {
 
 const paymentForm: HTMLFormElement = document.getElementById("paymentForm") as HTMLFormElement;
 
+
+const expiryInput = document.getElementById("expiryDate") as HTMLInputElement;
+
+          if (expiryInput) {
+  const today = new Date();// met la date de maintenant 
+  const year = today.getFullYear();//recupe que l'année en brut
+  const rawMonth = today.getMonth() + 1;//+1 car l'index commence qui est en brut ex "7"
+  let month: string;
+          if (rawMonth < 10) { //si le number récuperer est moin de 10 alors tu me rajoute un 0 avant le chiffre pour faire "07"
+  month = "0" + rawMonth;
+          } else {
+  month = String(rawMonth); //sinon c'est plus de dix alors tu me le renvoi en format string
+          }
+
+  // Format : "YYYY-MM" tu me met le mois actuel sur l'input quand je clique
+  const minMonth = `${year}-${month}`;
+  expiryInput.min = minMonth;
+}
+
+
 if (paymentForm) {
   paymentForm.addEventListener("submit", event => {
     event.preventDefault();
@@ -39,21 +59,30 @@ if (paymentForm) {
       expiryDate: formData.get("expiryDate"),
       CSV: formData.get("securityCode"),
     }
+    
 
     if (typeof paymentData.cardNumber !== "string") {
       // throw new Error("Numéro de carte invalide ou manquant");
     }
     else {
       const card = new PayCard(paymentData.cardNumber);
+    
       const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
 
       if (card.isValid() && cardValidityMessage) {
-        cardValidityMessage.textContent = "Carte valide ✅";
+        console.log(cardValidityMessage)
+        cardValidityMessage.textContent = "✅";
         cardValidityMessage.style.color = "green";
       } else if (cardValidityMessage) {
-        cardValidityMessage.textContent = "Numéro de carte invalide ❌";
+        cardValidityMessage.textContent = " ❌";
         cardValidityMessage.style.color = "red";
       }
     }
+
+   
+
+
+
+
   });
 }
