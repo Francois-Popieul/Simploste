@@ -24,7 +24,8 @@ export class PayCard {
   public isValid(): boolean {
     const isValid = this.algoLuhn(this.cardNumber);
     if (!isValid) {
-      alert("Erreur : numéro de carte invalide.");
+      // alert("Erreur : numéro de carte invalide.");
+ 
       return false;
     }
 
