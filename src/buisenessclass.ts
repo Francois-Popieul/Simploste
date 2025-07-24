@@ -1,6 +1,6 @@
 import { AbstractClass } from "./abstractclass.js";
 
-export class buisenessclass extends AbstractClass {
+export class BusinessClass extends AbstractClass {
   getSummary(): string[] {
     return [
       `Classe : Business`,
