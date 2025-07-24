@@ -60,7 +60,9 @@ cardTypeSelect.addEventListener("change", () => {
     securityCodeInput.pattern = "\\d{3}";
     securityCodeInput.placeholder = "3 chiffres";
   }
-  securityCodeInput.value = ""; // réinitialise pour éviter une valeur invalide après changement
+  
+  expiryInput.value="";
+  securityCodeInput.value = ""; 
 });
 
 
@@ -86,7 +88,6 @@ if (paymentForm) {
       const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
 
       if (card.isValid() && cardValidityMessage) {
-        console.log(cardValidityMessage)
         cardValidityMessage.textContent = "✅";
         cardValidityMessage.style.color = "green";
       } else if (cardValidityMessage) {
