@@ -1,5 +1,4 @@
 import type { Booking } from "./bookingInterface.js";
-
 import { AbstractClass } from "./abstractclass.js";
 import { EcoBasicClass } from "./ecobasicclass.js";
 import { buisenessclass } from "./buisenessclass.js";
@@ -14,7 +13,7 @@ export class EconomyClassFactory {
     const perks = standingData?.perks ?? [];
 
     switch (booking.travelClass) {
-      case "Business":
+      case "buisenessclass":
         return new buisenessclass(booking, perks);
       case "FirstClass":
         return new FirstClass(booking, perks);
