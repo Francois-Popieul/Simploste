@@ -15,6 +15,7 @@
       <section class="pageWrapper" id="bookingPage">
         <h2>Réservation d’un voyage</h2>
         <form id="bookingForm">
+          <div id="bookingFormErrors"></div>
           <fieldset class="fieldSet">
             <legend class="legend">Informations personnelles</legend>
             <div class="formGroup">
@@ -65,7 +66,7 @@
             <div class="formGroup">
               <label for="departureDate">Date de départ :</label>
               <input
-                type="datetime-local"
+                type="date"
                 id="departureDate"
                 name="departureDate"
                 required
@@ -73,30 +74,14 @@
             </div>
             <div class="formGroup">
               <label for="returnDate">Date de retour :</label>
-              <input
-                type="datetime-local"
-                id="returnDate"
-                name="returnDate"
-                required
-              />
+              <input type="date" id="returnDate" name="returnDate" required />
             </div>
-
             <div class="formGroup">
               <label for="destinationCity">Destination :</label>
               <select id="destinationCity" name="destinationCity" required>
                 <option value="">-- Sélectionner --</option>
-                <option value="Londres">Londres</option>
-                <option value="Berlin">Berlin</option>
-                <option value="Madrid">Madrid</option>
-                <option value="Rome">Rome</option>
-                <option value="Lisbonne">Lisbonne</option>
-                <option value="Vienne">Vienne</option>
-                <option value="Amsterdam">Amsterdam</option>
-                <option value="Bruxelles">Bruxelles</option>
-                <option value="Copenhague">Copenhague</option>
               </select>
             </div>
-
             <div class="formGroup">
               <label for="travelClass">Classe :</label>
               <label
@@ -130,11 +115,10 @@
       </section>
 
       <!-- Payment Form -->
-      <section class="pageWrapper" id="paymentPage">
+      <section class="pageWrapper hidden" id="paymentPage">
         <h2>Paiement</h2>
         <form id="paymentForm">
           <div id="paymentFormErrors"></div>
-
           <fieldset class="fieldSet">
             <div class="formGroup">
               <label for="cardType">Méthode de paiement :</label>
@@ -154,7 +138,6 @@
                 required
                 maxlength="19"
               />
-              <div id="cardValidityMessage"></div>
             </div>
             <div class="formGroup">
               <label for="expiryDate">Expiration :</label>
@@ -184,7 +167,7 @@
       </section>
 
       <!-- Flight Summary -->
-      <section class="pageWrapper" id="summaryPage">
+      <section class="pageWrapper hidden" id="summaryPage">
         <h2>Récapitulatif du voyage</h2>
         <ul class="list">
           <li class="item">
