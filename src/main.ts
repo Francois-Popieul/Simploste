@@ -47,6 +47,22 @@ const expiryInput = document.getElementById("expiryDate") as HTMLInputElement;
   expiryInput.min = minMonth;
 }
 
+const cardTypeSelect = document.getElementById("cardType") as HTMLSelectElement;
+const securityCodeInput = document.getElementById("securityCode") as HTMLInputElement;
+
+cardTypeSelect.addEventListener("change", () => {
+  if (cardTypeSelect.value === "amex") {
+    securityCodeInput.maxLength = 4;
+    securityCodeInput.pattern = "\\d{4}";
+    securityCodeInput.placeholder = "4 chiffres";
+  } else {
+    securityCodeInput.maxLength = 3;
+    securityCodeInput.pattern = "\\d{3}";
+    securityCodeInput.placeholder = "3 chiffres";
+  }
+  securityCodeInput.value = ""; // réinitialise pour éviter une valeur invalide après changement
+});
+
 
 if (paymentForm) {
   paymentForm.addEventListener("submit", event => {
