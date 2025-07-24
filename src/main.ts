@@ -74,19 +74,26 @@ if (bookingForm) {
     if (!flightData.returnDate || !dateRegEx.test(flightData.returnDate.toString())) {
       bookingFormErrors.push("Saisissez une date de retour valide.");
     }
-    const labels: string[] = data.destinations.map(dest => dest.label.toLowerCase());
-    if (!flightData.destinationCity || !labels.includes(flightData.destinationCity.toString().toLowerCase())) {
+    const destinationValues: string[] = data.destinations.map(dest => dest.value.toLowerCase());
+    if (!flightData.destinationCity || !destinationValues.includes(flightData.destinationCity.toString())) {
+      console.log("Destination sélectionnée :", flightData.destinationCity);
       bookingFormErrors.push("Saisissez une destination valide.");
     }
     if (!flightData.travelClass || flightData.travelClass === null || flightData.travelClass === undefined) {
       bookingFormErrors.push("Saisissez une date de retour valide.");
     }
-    if (bookingFormErrors != null) {
+    if (bookingFormErrors.length > 0) {
       bookingFormErrors.forEach(error => {
         const paragraph: HTMLParagraphElement = document.createElement("p");
         paragraph.innerText = error;
         bookingErrorDiv?.append(paragraph);
       })
+    }
+    else {
+      const bookingPage: HTMLElement | null = document.getElementById("bookingPage");
+      const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
+      bookingPage?.classList.toggle("hidden");
+      paymentPage?.classList.toggle("hidden");
     }
   })
 }
