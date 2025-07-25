@@ -1,9 +1,9 @@
 import { AbstractClass } from "./abstractclass.js";
 
-export class FirstClass extends AbstractClass {
+export class Businessclass extends AbstractClass {
   getSummary(): string[] {
     return [
-      `Classe : PremièreClass`,
+      `Classe : Businesse`,
       `Nom complet : ${this.bookingData.forename} ${this.bookingData.surname}`,
       `Départ : Paris`,
       `Arrivée : ${this.bookingData.destinationCity}`,
