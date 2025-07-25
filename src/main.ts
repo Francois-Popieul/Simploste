@@ -186,12 +186,6 @@ if (bookingForm) {
   })
 }
 
-
-
-
-
-
-
 const paymentForm: HTMLFormElement = document.getElementById("paymentForm") as HTMLFormElement;
 
 const expiryInput = document.getElementById("expiryDate") as HTMLInputElement;
@@ -202,20 +196,21 @@ if (expiryInput) {
 
 const cardTypeSelect = document.getElementById("cardType") as HTMLSelectElement;
 const securityCodeInput = document.getElementById("securityCode") as HTMLInputElement;
+const codeCardInput = document.getElementById("cardNumber") as HTMLInputElement;
 
 cardTypeSelect.addEventListener("change", () => {
   if (cardTypeSelect.value === "amex") {
     securityCodeInput.maxLength = 4;
-    securityCodeInput.pattern = "\\d{4}";
     securityCodeInput.placeholder = "4 chiffres";
   } else {
     securityCodeInput.maxLength = 3;
-    securityCodeInput.pattern = "\\d{3}";
     securityCodeInput.placeholder = "3 chiffres";
   }
-  
+
+  cardTypeSelect.dispatchEvent(new Event("change"));
   expiryInput.value="";
   securityCodeInput.value = ""; 
+  codeCardInput.value = "";
 });
 
 
