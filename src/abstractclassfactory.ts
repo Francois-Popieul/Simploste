@@ -2,7 +2,7 @@ import type { Booking } from "./bookingInterface.js";
 import { AbstractClass } from "./abstractclass.js";
 import { EcoClass } from "./Ecoclass.js";
 import { Businessclass } from "./Businessclass.js";
-import { FirstClass } from "./Firstclass.js";
+import { FirstClass } from "./firstclass.js";
 import { data } from "./data.js";
 
 
