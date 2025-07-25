@@ -1,6 +1,6 @@
 import type { Booking } from "./bookingInterface.js";
 import { AbstractStandingClass } from "./AbstractStandingClass.js";
-import { EcoClass } from "./Ecoclass.js";
+import { EcoClass } from "./EcoClass.js";
 import { BusinessClass } from "./BusinessClass.js";
 import { FirstClass } from "./FirstClass.js";
 import { data } from "./data.js";
