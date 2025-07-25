@@ -1,14 +1,14 @@
-dist
-node_modules
-ressources
+
 import type { Booking } from "./bookingInterface.js";
 import { data } from "./data.js";
 
-export abstract class AbstractEconomyClass {
+export abstract class AbstractClass {
   protected bookingData: Booking;
+  protected perks: string[];
 
-  constructor(bookingData: Booking) {
+  constructor(bookingData: Booking, perks: string[]) {
     this.bookingData = bookingData;
+    this.perks = perks;
   }
 
   
