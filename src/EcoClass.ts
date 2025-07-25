@@ -3,21 +3,21 @@ import { AbstractStandingClass } from "./AbstractStandingClass.js";
 export class EcoClass extends AbstractStandingClass {
   getSummary(): string[] {
     return [
-      `Classe : économique`,
-   `Nom complet : ${this.bookingData.forename} ${this.bookingData.surname}`,
-      `Genre : ${this.bookingData.gender}`,
-      `Année de naissance : ${this.bookingData.birthDate}`,
-      `Adresse : ${this.bookingData.address}`,
-      `Phone : ${this.bookingData.phone}`,
-      `email : ${this.bookingData.email}`,
-      `Départ : ${this.bookingData.departureDate}`,
-      `Départ  Paris`,
-      `Arrivée : ${this.bookingData.destinationCity}`,
-      `Date de retour : ${this.bookingData.returnDate}`,
-      `Distance : ${this.getDistance()} km`,
-      `Prix : ${this.bookingData.totalPrice} €`,
-      `Réservation : ${this.generateReservationCode()}`,
-      `Avantages : ${this.perks}`
+      `économique`, // Classe
+      `${this.bookingData.forename} ${this.bookingData.surname}`, // Nom complet
+      `${this.bookingData.gender}`, // Sexe
+      `${this.bookingData.birthDate}`, // Date de naissance
+      `${this.bookingData.address}`, // Adresse postale
+      `${this.bookingData.phone}`, // Numéro de téléphone
+      `${this.bookingData.email}`, // Adresse e-mail
+      `${this.bookingData.departureDate}`, // Date de départ
+      `Paris`, // Lieu de départ
+      `${this.bookingData.destinationCity}`, // Date d'arrivée
+      `${this.bookingData.returnDate}`, // Date de retour
+      `${this.getDistance()} km`, // Distance
+      `${this.bookingData.totalPrice} €`, // Prix
+      `${this.generateReservationCode()}`, // Numéro de réservation
+      `${this.perks}` // Avantages
     ]
   }
 }

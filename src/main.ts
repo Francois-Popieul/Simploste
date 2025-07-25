@@ -215,8 +215,8 @@ cardTypeSelect.addEventListener("change", () => {
     securityCodeInput.placeholder = "3 chiffres";
   }
 
-  expiryInput.value="";
-  securityCodeInput.value = ""; 
+  expiryInput.value = "";
+  securityCodeInput.value = "";
   codeCardInput.value = "";
 });
 
@@ -232,11 +232,11 @@ if (paymentForm) {
       CSV: formData.get("securityCode"),
     };
 
-    
+
 
     const paymentFormErrors = document.getElementById("paymentFormErrors");
     // nettoie les anciennes erreurs 
-    if (paymentFormErrors) paymentFormErrors.innerHTML = ""; 
+    if (paymentFormErrors) paymentFormErrors.innerHTML = "";
 
     let errorFound = false;
 
@@ -271,7 +271,7 @@ if (paymentForm) {
       errorFound = true;
     }
 
- // Validation du numero de carte
+    // Validation du numero de carte
     if (typeof paymentData.cardNumber === "string") {
       const card = new PayCard(paymentData.cardNumber);
       const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
@@ -288,61 +288,78 @@ if (paymentForm) {
       }
     }
 
-   // si il y a une erreur bloque
+    // si il y a une erreur bloque
     if (errorFound) return;
 
 
-    const paymentPage = document.getElementById("paymentPage");    
+    const paymentPage = document.getElementById("paymentPage");
 
     const instance = StandingFactory.create(flightData);
-      console.log("Instance créée via factory :", instance);
-      console.log("Résumé :", instance.getSummary());
+    console.log("Instance créée via factory :", instance);
+    console.log("Résumé :", instance.getSummary());
 
-      const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
-      if (summaryPage) {
-        const data = instance.getSummary();
-        const recapName = document.getElementById("recapName");
-        const recapForename = document.getElementById("recapForename");
-        const recapEmail = document.getElementById("recapEmail");
-        const recapPhone = document.getElementById("recapPhone");
-        const recapDestination = document.getElementById("recapDestination");
-        const recapDepartureDate = document.getElementById("recapDepartureDate");
-        const recapReturnDate = document.getElementById("recapReturnDate");
-        const recapClass = document.getElementById("recapClass");
-        const recapPrice = document.getElementById("recapPrice");
-        const recapPerks = document.getElementById("recapPerks");
-        if (recapName) {
-          recapName.innerText = data[1];
-        }
-        if (recapForename) {
-          recapForename.innerText = data[2];
-        }
-        if (recapEmail) {
-          recapEmail.innerText = data[3];
-        }
-        if (recapPhone) {
-          recapPhone.innerText = data[4];
-        }
-        if (recapDestination) {
-          recapDestination.innerText = data[5];
-        }
-        if (recapDepartureDate) {
-          recapDepartureDate.innerText = data[6];
-        }
-        if (recapReturnDate) {
-          recapReturnDate.innerText = data[7];
-        }
-        if (recapClass) {
-          recapClass.innerText = data[0];
-        }
-        if (recapPrice) {
-          recapPrice.innerText = data[8];
-        }
-        if (recapPerks) {
-          recapPerks.innerText = data[9];
-        }
-        summaryPage?.classList.toggle("hidden");
-        paymentPage?.classList.toggle("hidden");
+    const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
+    if (summaryPage) {
+      const data = instance.getSummary();
+      const recapName = document.getElementById("recapName");
+      const recapEmail = document.getElementById("recapEmail");
+      const recapPhone = document.getElementById("recapPhone");
+      const recapDestination = document.getElementById("recapDestination");
+      const recapDepartureDate = document.getElementById("recapDepartureDate");
+      const recapReturnDate = document.getElementById("recapReturnDate");
+      const recapClass = document.getElementById("recapClass");
+      const recapPrice = document.getElementById("recapPrice");
+      const recapPerks = document.getElementById("recapPerks");
+      const recapDepartureLocation = document.getElementById("recapDepartureLocation");
+      const recapBookingNumber = document.getElementById("recapBookingNumber");
+      const recapGender = document.getElementById("recapGender");
+      const recapAddress = document.getElementById("recapAddress");
+      const recapDistance = document.getElementById("recapDistance");
+
+      if (recapName) {
+        recapName.innerText = data[1];
       }
+      if (recapGender) {
+        recapGender.innerText = data[2];
+      }
+      if (recapEmail) {
+        recapEmail.innerText = data[6];
+      }
+      if (recapPhone) {
+        recapPhone.innerText = data[5];
+      }
+      if (recapAddress) {
+        recapAddress.innerText = data[4];
+      }
+      if (recapDepartureLocation) {
+        recapDepartureLocation.innerText = data[8];
+      }
+      if (recapDestination) {
+        recapDestination.innerText = data[9];
+      }
+      if (recapDepartureDate) {
+        recapDepartureDate.innerText = data[7];
+      }
+      if (recapReturnDate) {
+        recapReturnDate.innerText = data[10];
+      }
+      if (recapDistance) {
+        recapDistance.innerText = data[11];
+      }
+      if (recapClass) {
+        recapClass.innerText = data[0];
+      }
+      if (recapPrice) {
+        recapPrice.innerText = data[12];
+      }
+      if (recapPerks) {
+        recapPerks.innerText = data[14];
+      }
+      if (recapBookingNumber) {
+        recapBookingNumber.innerText = data[13];
+      }
+      summaryPage?.classList.toggle("hidden");
+      paymentPage?.classList.toggle("hidden");
+    }
   });
 }
