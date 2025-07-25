@@ -2,6 +2,7 @@ import { PayCard } from "./PayCards.js";
 import { PaymentMethod } from "./paymentMethodInterface.js";
 import { Booking } from "./bookingInterface.js";
 import { data } from "./data.js";
+import { AppData } from "./Types/AppData.js";
 
 const bookingForm: HTMLFormElement = document.getElementById("bookingForm") as HTMLFormElement;
 const destinationCity: HTMLElement | null = document.getElementById("destinationCity") as HTMLSelectElement;
@@ -49,7 +50,8 @@ function getConstraintDate(length?: string) {
 }
 
 if (destinationCity) {
-  data.destinations.forEach(destination => {
+  const filteredAndSortedDestinations: any[] = data.destinations.filter(destination => destination.value.toLowerCase() !== "paris").sort((a, b) => a.label.localeCompare(b.label));
+  filteredAndSortedDestinations.forEach(destination => {
     const option = document.createElement("option");
     option.value = destination.value;
     option.innerText = destination.label;
@@ -160,7 +162,8 @@ if (bookingForm) {
       bookingFormErrors.push("La date de retour doit être postérieure à la date de départ.");
     }
 
-    const destinationValues: string[] = data.destinations.map(dest => dest.value.toLowerCase());
+    const destinationValues: string[] = data.destinations.map(destination => destination.value.toLowerCase());
+
     if (!flightData.destinationCity || !destinationValues.includes(flightData.destinationCity.toString())) {
       console.log("Destination sélectionnée :", flightData.destinationCity);
       bookingFormErrors.push("Saisissez une destination valide.");
@@ -215,10 +218,10 @@ cardTypeSelect.addEventListener("change", () => {
 
 
 if (paymentForm) {
-      paymentForm.addEventListener("submit", event => {
+  paymentForm.addEventListener("submit", event => {
     event.preventDefault();
 
- 
+
 
     const formData = new FormData(paymentForm);
     const paymentData = {
@@ -234,11 +237,11 @@ if (paymentForm) {
     } else {
       const card = new PayCard(paymentData.cardNumber);
 
-      const cardValidityMessage: HTMLElement | null= document.getElementById("cardValidityMessage");
+      const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
 
       
       if (card.isValid() && cardValidityMessage) {
-        
+
         // cardValidityMessage.textContent = "✅";
         // cardValidityMessage.style.color = "green";
 
@@ -248,7 +251,7 @@ if (paymentForm) {
       }
     }
 
- 
+
     // Vérification ciblée pour cardNumber et CSV
     const paymentFormErrors = document.getElementById("paymentFormErrors");
     let errorFound = false;
@@ -278,7 +281,7 @@ if (paymentForm) {
 
     // Stoppe le traitement si erreur détectée
     if (errorFound) return;
- else {
+    else {
       const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
       const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
       summaryPage?.classList.toggle("hidden");
@@ -286,4 +289,5 @@ if (paymentForm) {
     }
   })
 }
-    
+// Ici la suite de ton traitement si pas d'erreur...
+
