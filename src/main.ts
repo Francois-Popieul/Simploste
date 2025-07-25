@@ -204,6 +204,8 @@ const cardTypeSelect = document.getElementById("cardType") as HTMLSelectElement;
 const securityCodeInput = document.getElementById("securityCode") as HTMLInputElement;
 const codeCardInput = document.getElementById("cardNumber") as HTMLInputElement;
 
+
+// change les chiffre de securité en fonction du type de cb//
 cardTypeSelect.addEventListener("change", () => {
   if (cardTypeSelect.value === "amex") {
     securityCodeInput.maxLength = 4;
@@ -213,9 +215,8 @@ cardTypeSelect.addEventListener("change", () => {
     securityCodeInput.placeholder = "3 chiffres";
   }
 
-  cardTypeSelect.dispatchEvent(new Event("change"));
-  expiryInput.value = "";
-  securityCodeInput.value = "";
+  expiryInput.value="";
+  securityCodeInput.value = ""; 
   codeCardInput.value = "";
 });
 
@@ -229,110 +230,72 @@ if (paymentForm) {
       cardHolder: formData.get("cardHolder"),
       expiryDate: formData.get("expiryDate"),
       CSV: formData.get("securityCode"),
-    }
+    };
 
-    if (typeof paymentData.cardNumber !== "string") {
-      // throw new Error("Numéro de carte invalide ou manquant");
-    } else {
-      const card = new PayCard(paymentData.cardNumber);
+    
 
-      const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
-
-
-      if (card.isValid() && cardValidityMessage) {
-
-        // cardValidityMessage.textContent = "✅";
-        // cardValidityMessage.style.color = "green";
-
-      } if (cardValidityMessage) {
-        cardValidityMessage.textContent = "❌";
-        cardValidityMessage.style.color = "red";
-      }
-    }
-
-    // Vérification ciblée pour cardNumber et CSV
     const paymentFormErrors = document.getElementById("paymentFormErrors");
+    // nettoie les anciennes erreurs 
+    if (paymentFormErrors) paymentFormErrors.innerHTML = ""; 
+
     let errorFound = false;
 
-    if (paymentFormErrors) {
-      const cardNumber = formData.get("cardNumber");
-      const csv = formData.get("securityCode");
-      const cardType = formData.get("cardType"); // Récupère la valeur du type de carte
+    //verification name
+    const nameRegEx: RegExp = /^[A-Za-zÀ-ÿ\s'-]{3,}$/;
+    const cardHolder = paymentData.cardHolder?.toString().trim() || "";
 
-      if (
-        typeof cardNumber !== "string" || !cardNumber.trim() ||                                             // existe et non vide
-        typeof csv !== "string" || !csv.trim() ||                                                           // existe et non vide
-        !/^\d{13,19}$/.test(cardNumber.replace(/\s+/g, '')) ||                                              // numéro de carte 13 à 19 chiffres (sans espaces)
-        (cardType === "amex" && !/^\d{4}$/.test(csv)) ||                                                    // CSV Amex : 4 chiffres
-        (cardType !== "amex" && !/^\d{3}$/.test(csv))                                                       // CSV autres : 3 chiffres
+    if (!nameRegEx.test(cardHolder)) {
+      const errorText = document.createElement("p");
+      errorText.textContent = "Le nom du titulaire est invalide.";
+      errorText.style.color = "red";
+      errorText.style.zIndex = "1000";
+      paymentFormErrors?.appendChild(errorText);
+      errorFound = true;
+    }
 
-      ) {
-        // Affiche erreur
-        const errorText = document.createElement("p");
-        errorText.textContent = "Le numéro de carte ou le code de sécurité est invalide.";
-        errorText.style.color = "red";
-        errorText.style.zIndex = "1000";
-        paymentFormErrors.appendChild(errorText);
-        errorFound = true;
+    //Validation du numéro de carte et code secret
+    const cardNumber = paymentData.cardNumber?.toString().trim() || "";
+    const csv = paymentData.CSV?.toString().trim() || "";
+    const cardType = paymentData.cardType?.toString();
+
+    if (
+      !/^\d{13,19}$/.test(cardNumber.replace(/\s+/g, "")) ||
+      (cardType === "amex" && !/^\d{4}$/.test(csv)) ||
+      (cardType !== "amex" && !/^\d{3}$/.test(csv))
+    ) {
+      const errorText = document.createElement("p");
+      errorText.textContent = "Le numéro de carte ou le code de sécurité est invalide.";
+      errorText.style.color = "red";
+      errorText.style.zIndex = "1000";
+      paymentFormErrors?.appendChild(errorText);
+      errorFound = true;
+    }
+
+ // Validation du numero de carte
+    if (typeof paymentData.cardNumber === "string") {
+      const card = new PayCard(paymentData.cardNumber);
+      const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
+
+      if (cardValidityMessage) {
+        if (card.isValid()) {
+          cardValidityMessage.textContent = "✅";
+          cardValidityMessage.style.color = "green";
+        } else {
+          cardValidityMessage.textContent = "❌";
+          cardValidityMessage.style.color = "red";
+          errorFound = true;
+        }
       }
     }
 
-    // Stoppe le traitement si erreur détectée
+   // si il y a une erreur bloque
     if (errorFound) return;
-    else {
-      const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
 
-      const instance = StandingFactory.create(flightData);
-      console.log("Instance créée via factory :", instance);
-      console.log("Résumé :", instance.getSummary());      
 
-      const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
-      if (summaryPage) {
-        const data = instance.getSummary();
-        const recapName = document.getElementById("recapName");
-        const recapForename = document.getElementById("recapForename");
-        const recapEmail = document.getElementById("recapEmail");
-        const recapPhone = document.getElementById("recapPhone");
-        const recapDestination = document.getElementById("recapDestination");
-        const recapDepartureDate = document.getElementById("recapDepartureDate");
-        const recapReturnDate = document.getElementById("recapReturnDate");
-        const recapClass = document.getElementById("recapClass");
-        const recapPrice = document.getElementById("recapPrice");
-        const recapPerks = document.getElementById("recapPerks");
-        if (recapName) {
-          recapName.innerText = data[1];
-        }
-        if (recapForename) {
-          recapForename.innerText = data[2];
-        }
-        if (recapEmail) {
-          recapEmail.innerText = data[3];
-        }
-        if (recapPhone) {
-          recapPhone.innerText = data[4];
-        }
-        if (recapDestination) {
-          recapDestination.innerText = data[5];
-        }
-        if (recapDepartureDate) {
-          recapDepartureDate.innerText = data[6];
-        }
-        if (recapReturnDate) {
-          recapReturnDate.innerText = data[7];
-        }
-        if (recapClass) {
-          recapClass.innerText = data[0];
-        }
-        if (recapPrice) {
-          recapPrice.innerText = data[8];
-        }
-        if (recapPerks) {
-          recapPerks.innerText = data[9];
-        }
-        summaryPage?.classList.toggle("hidden");
-        paymentPage?.classList.toggle("hidden");
-      }
+    const paymentPage = document.getElementById("paymentPage");
+    const summaryPage = document.getElementById("summaryPage");
 
-    }
-  })
+    paymentPage?.classList.toggle("hidden");
+    summaryPage?.classList.toggle("hidden");
+  });
 }
