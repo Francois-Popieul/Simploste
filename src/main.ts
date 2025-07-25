@@ -2,6 +2,8 @@ import { PayCard } from "./PayCards.js";
 import { PaymentMethod } from "./paymentMethodInterface.js";
 import { Booking } from "./bookingInterface.js";
 import { data } from "./data.js";
+import { saveBookingData, getBookingData, clearBookingData } from "./storage.js";
+import { StandingFactory } from "./StandingFactory.js";
 import { AppData } from "./Types/AppData.js";
 
 const bookingForm: HTMLFormElement = document.getElementById("bookingForm") as HTMLFormElement;
@@ -40,7 +42,7 @@ function getConstraintDate(length?: string) {
   const currentDate = new Date();
   const yyyy: string = currentDate.getFullYear().toString();
   const mm: string = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const dd: string = String(currentDate.getDate() + 1).padStart(2, "0");
+  const dd: string = String(currentDate.getDate()).padStart(2, "0");
   if (length == "long") {
     return `${yyyy}-${mm}-${dd}`;
   }
@@ -181,6 +183,7 @@ if (bookingForm) {
       })
     }
     else {
+
       const bookingPage: HTMLElement | null = document.getElementById("bookingPage");
       const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
       bookingPage?.classList.toggle("hidden");
@@ -217,13 +220,9 @@ cardTypeSelect.addEventListener("change", () => {
   codeCardInput.value = "";
 });
 
-
 if (paymentForm) {
   paymentForm.addEventListener("submit", event => {
     event.preventDefault();
-
-
-
     const formData = new FormData(paymentForm);
     const paymentData = {
       cardType: formData.get("cardType"),

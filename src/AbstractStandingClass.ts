@@ -1,8 +1,7 @@
-
 import type { Booking } from "./bookingInterface.js";
 import { data } from "./data.js";
 
-export abstract class AbstractClass {
+export abstract class AbstractStandingClass {
   protected bookingData: Booking;
   protected perks: string[];
 
@@ -11,17 +10,15 @@ export abstract class AbstractClass {
     this.perks = perks;
   }
 
-  
   abstract getSummary(): string[];
 
   protected generateReservationCode(): string {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
   }
 
- 
   protected getDistance(): number {
     const destinationKey = this.bookingData.destinationCity?.toString().toLowerCase() ?? "";
-    const destination = data.destinations.find(dest => dest.label === destinationKey);
+    const destination = data.destinations.find(dest => dest.value === destinationKey);
     return destination?.distanceFromParis ?? 0;
   }
 }
