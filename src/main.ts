@@ -179,7 +179,6 @@ if (bookingForm) {
       })
     }
     else {
-      saveBookingData(flightData);
 
       const bookingPage: HTMLElement | null = document.getElementById("bookingPage");
       const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
