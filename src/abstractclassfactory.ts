@@ -2,7 +2,7 @@ import type { Booking } from "./bookingInterface.js";
 import { AbstractClass } from "./abstractclass.js";
 import { EcoClass } from "./Ecoclass.js";
 import { Businessclass } from "./Businessclass.js";
-import { FirstClass } from "./firstclass.js";
+import { FirstClass } from "./Firstclass.js";
 import { data } from "./data.js";
 
 
@@ -16,7 +16,7 @@ export class EconomyClassFactory {
       console.log("Classe choisie :", booking.travelClass);
 
  switch (booking.travelClass?.toString()) {
-  case "businessclass":
+  case "business":
       
   return new Businessclass(booking, perks);
   case "first":
