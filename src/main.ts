@@ -2,6 +2,7 @@ import { PayCard } from "./PayCards.js";
 import { PaymentMethod } from "./paymentMethodInterface.js";
 import { Booking } from "./bookingInterface.js";
 import { data } from "./data.js";
+import { saveBookingData, getBookingData, clearBookingData } from "./storage.js";
 import { EconomyClassFactory } from "./abstractclassfactory.js";
 import { AppData } from "./Types/AppData.js";
 
@@ -182,6 +183,7 @@ if (bookingForm) {
       })
     }
     else {
+
       const bookingPage: HTMLElement | null = document.getElementById("bookingPage");
       const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
       bookingPage?.classList.toggle("hidden");
