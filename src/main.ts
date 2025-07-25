@@ -3,7 +3,7 @@ import { PaymentMethod } from "./paymentMethodInterface.js";
 import { Booking } from "./bookingInterface.js";
 import { data } from "./data.js";
 import { saveBookingData, getBookingData, clearBookingData } from "./storage.js";
-import { EconomyClassFactory } from "./abstractclassfactory.js";
+import { StandingFactory } from "./StandingFactory.js";
 import { AppData } from "./Types/AppData.js";
 
 const bookingForm: HTMLFormElement = document.getElementById("bookingForm") as HTMLFormElement;
@@ -42,7 +42,7 @@ function getConstraintDate(length?: string) {
   const currentDate = new Date();
   const yyyy: string = currentDate.getFullYear().toString();
   const mm: string = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const dd: string = String(currentDate.getDate() + 1).padStart(2, "0");
+  const dd: string = String(currentDate.getDate()).padStart(2, "0");
   if (length == "long") {
     return `${yyyy}-${mm}-${dd}`;
   }
@@ -214,18 +214,14 @@ cardTypeSelect.addEventListener("change", () => {
   }
 
   cardTypeSelect.dispatchEvent(new Event("change"));
-  expiryInput.value="";
-  securityCodeInput.value = ""; 
+  expiryInput.value = "";
+  securityCodeInput.value = "";
   codeCardInput.value = "";
 });
-
 
 if (paymentForm) {
   paymentForm.addEventListener("submit", event => {
     event.preventDefault();
-
-
-
     const formData = new FormData(paymentForm);
     const paymentData = {
       cardType: formData.get("cardType"),
@@ -242,7 +238,7 @@ if (paymentForm) {
 
       const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
 
-      
+
       if (card.isValid() && cardValidityMessage) {
 
         // cardValidityMessage.textContent = "✅";
@@ -253,7 +249,6 @@ if (paymentForm) {
         cardValidityMessage.style.color = "red";
       }
     }
-
 
     // Vérification ciblée pour cardNumber et CSV
     const paymentFormErrors = document.getElementById("paymentFormErrors");
@@ -270,7 +265,7 @@ if (paymentForm) {
         !/^\d{13,19}$/.test(cardNumber.replace(/\s+/g, '')) ||                                              // numéro de carte 13 à 19 chiffres (sans espaces)
         (cardType === "amex" && !/^\d{4}$/.test(csv)) ||                                                    // CSV Amex : 4 chiffres
         (cardType !== "amex" && !/^\d{3}$/.test(csv))                                                       // CSV autres : 3 chiffres
-        
+
       ) {
         // Affiche erreur
         const errorText = document.createElement("p");
@@ -287,10 +282,9 @@ if (paymentForm) {
     else {
       const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
 
- const instance = EconomyClassFactory.create(flightData);
-  console.log("Instance créée via factory :", instance);
-  console.log("Résumé :", instance.getSummary());
-
+      const instance = StandingFactory.create(flightData);
+      console.log("Instance créée via factory :", instance);
+      console.log("Résumé :", instance.getSummary());
 
       const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
       summaryPage?.classList.toggle("hidden");
@@ -298,5 +292,3 @@ if (paymentForm) {
     }
   })
 }
-// Ici la suite de ton traitement si pas d'erreur...
-
