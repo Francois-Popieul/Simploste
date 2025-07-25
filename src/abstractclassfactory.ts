@@ -13,12 +13,18 @@ export class EconomyClassFactory {
     );
     const perks = standingData?.perks ?? [];
 
+      console.log("Classe choisie :", booking.travelClass);
+
  switch (booking.travelClass?.toString()) {
   case "businessclass":
-    return new Businessclass(booking, perks);
+      
+  return new Businessclass(booking, perks);
   case "first":
-    return new FirstClass(booking, perks);
+
+  return new FirstClass(booking, perks);
+          
   default:
+   
     return new EcoClass(booking, perks);
 }
   }

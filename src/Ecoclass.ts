@@ -4,7 +4,6 @@ export class EcoClass extends AbstractClass {
   getSummary(): string[] {
     return [
       `Classe : Économique`,
-      `Classe : Premium Éco`,
       `Nom complet : ${this.bookingData.forename} ${this.bookingData.surname}`,
       `Départ : Paris`,
       `Arrivée : ${this.bookingData.destinationCity}`,

@@ -2,6 +2,7 @@ import { PayCard } from "./PayCards.js";
 import { PaymentMethod } from "./paymentMethodInterface.js";
 import { Booking } from "./bookingInterface.js";
 import { data } from "./data.js";
+import { EconomyClassFactory } from "./abstractclassfactory.js";
 
 const bookingForm: HTMLFormElement = document.getElementById("bookingForm") as HTMLFormElement;
 const destinationCity: HTMLElement | null = document.getElementById("destinationCity") as HTMLSelectElement;
@@ -224,7 +225,6 @@ if (paymentForm) {
 
       const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
 
-      const cardValidityMessage = document.getElementById("cardValidityMessage");
       
       if (card.isValid() && cardValidityMessage) {
         
@@ -268,6 +268,12 @@ if (paymentForm) {
     if (errorFound) return;
  else {
       const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
+
+ const instance = EconomyClassFactory.create(flightData);
+  console.log("Instance créée via factory :", instance);
+  console.log("Résumé :", instance.getSummary());
+
+
       const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
       summaryPage?.classList.toggle("hidden");
       paymentPage?.classList.toggle("hidden");
