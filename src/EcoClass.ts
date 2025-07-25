@@ -18,5 +18,6 @@ export class EcoClass extends AbstractStandingClass {
       `Prix : ${this.bookingData.totalPrice} €`,
       `Réservation : ${this.generateReservationCode()}`,
       `Avantages : ${this.perks}`
+    ]
   }
 }
