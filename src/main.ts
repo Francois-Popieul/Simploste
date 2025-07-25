@@ -192,8 +192,6 @@ if (bookingForm) {
 
 
 
-
-
 const paymentForm: HTMLFormElement = document.getElementById("paymentForm") as HTMLFormElement;
 
 const expiryInput = document.getElementById("expiryDate") as HTMLInputElement;
@@ -201,6 +199,25 @@ const expiryInput = document.getElementById("expiryDate") as HTMLInputElement;
 if (expiryInput) {
   expiryInput.min = getConstraintDate();
 }
+
+const cardTypeSelect = document.getElementById("cardType") as HTMLSelectElement;
+const securityCodeInput = document.getElementById("securityCode") as HTMLInputElement;
+
+cardTypeSelect.addEventListener("change", () => {
+  if (cardTypeSelect.value === "amex") {
+    securityCodeInput.maxLength = 4;
+    securityCodeInput.pattern = "\\d{4}";
+    securityCodeInput.placeholder = "4 chiffres";
+  } else {
+    securityCodeInput.maxLength = 3;
+    securityCodeInput.pattern = "\\d{3}";
+    securityCodeInput.placeholder = "3 chiffres";
+  }
+  
+  expiryInput.value="";
+  securityCodeInput.value = ""; 
+});
+
 
 if (paymentForm) {
       paymentForm.addEventListener("submit", event => {
@@ -222,9 +239,8 @@ if (paymentForm) {
     } else {
       const card = new PayCard(paymentData.cardNumber);
 
-      const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
+      const cardValidityMessage: HTMLElement | null= document.getElementById("cardValidityMessage");
 
-      const cardValidityMessage = document.getElementById("cardValidityMessage");
       
       if (card.isValid() && cardValidityMessage) {
         
@@ -253,6 +269,7 @@ if (paymentForm) {
         !/^\d{13,19}$/.test(cardNumber.replace(/\s+/g, '')) ||                                              // numéro de carte 13 à 19 chiffres (sans espaces)
         (cardType === "amex" && !/^\d{4}$/.test(csv)) ||                                                    // CSV Amex : 4 chiffres
         (cardType !== "amex" && !/^\d{3}$/.test(csv))                                                       // CSV autres : 3 chiffres
+        
       ) {
         // Affiche erreur
         const errorText = document.createElement("p");
@@ -274,5 +291,4 @@ if (paymentForm) {
     }
   })
 }
-    // Ici la suite de ton traitement si pas d'erreur...
- 
+    
