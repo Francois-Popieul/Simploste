@@ -186,6 +186,14 @@ if (bookingForm) {
   })
 }
 
+
+
+
+
+
+
+
+
 const paymentForm: HTMLFormElement = document.getElementById("paymentForm") as HTMLFormElement;
 
 const expiryInput = document.getElementById("expiryDate") as HTMLInputElement;
@@ -195,10 +203,13 @@ if (expiryInput) {
 }
 
 if (paymentForm) {
-  paymentForm.addEventListener("submit", event => {
+      paymentForm.addEventListener("submit", event => {
     event.preventDefault();
+
+ 
+
     const formData = new FormData(paymentForm);
-    const paymentData: PaymentMethod = {
+    const paymentData = {
       cardType: formData.get("cardType"),
       cardNumber: formData.get("cardNumber"),
       cardHolder: formData.get("cardHolder"),
@@ -208,20 +219,60 @@ if (paymentForm) {
 
     if (typeof paymentData.cardNumber !== "string") {
       // throw new Error("Numéro de carte invalide ou manquant");
-    }
-    else {
+    } else {
       const card = new PayCard(paymentData.cardNumber);
 
       const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
 
+      const cardValidityMessage = document.getElementById("cardValidityMessage");
+      
       if (card.isValid() && cardValidityMessage) {
-        console.log(cardValidityMessage)
-        cardValidityMessage.textContent = "✅";
-        cardValidityMessage.style.color = "green";
-      } else if (cardValidityMessage) {
-        cardValidityMessage.textContent = " ❌";
+        
+        // cardValidityMessage.textContent = "✅";
+        // cardValidityMessage.style.color = "green";
+
+      } if (cardValidityMessage) {
+        cardValidityMessage.textContent = "❌";
         cardValidityMessage.style.color = "red";
       }
     }
-  });
+
+ 
+    // Vérification ciblée pour cardNumber et CSV
+    const paymentFormErrors = document.getElementById("paymentFormErrors");
+    let errorFound = false;
+
+    if (paymentFormErrors) {
+      const cardNumber = formData.get("cardNumber");
+      const csv = formData.get("securityCode");
+      const cardType = formData.get("cardType"); // Récupère la valeur du type de carte
+
+      if (
+        typeof cardNumber !== "string" || !cardNumber.trim() ||                                             // existe et non vide
+        typeof csv !== "string" || !csv.trim() ||                                                           // existe et non vide
+        !/^\d{13,19}$/.test(cardNumber.replace(/\s+/g, '')) ||                                              // numéro de carte 13 à 19 chiffres (sans espaces)
+        (cardType === "amex" && !/^\d{4}$/.test(csv)) ||                                                    // CSV Amex : 4 chiffres
+        (cardType !== "amex" && !/^\d{3}$/.test(csv))                                                       // CSV autres : 3 chiffres
+      ) {
+        // Affiche erreur
+        const errorText = document.createElement("p");
+        errorText.textContent = "Le numéro de carte ou le code de sécurité est invalide.";
+        errorText.style.color = "red";
+        errorText.style.zIndex = "1000";
+        paymentFormErrors.appendChild(errorText);
+        errorFound = true;
+      }
+    }
+
+    // Stoppe le traitement si erreur détectée
+    if (errorFound) return;
+ else {
+      const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
+      const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
+      summaryPage?.classList.toggle("hidden");
+      paymentPage?.classList.toggle("hidden");
+    }
+  })
 }
+    // Ici la suite de ton traitement si pas d'erreur...
+ 

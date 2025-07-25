@@ -20,16 +20,16 @@ export class PayCard {
 
     return sum % 10 === 0;
   }
+public isValid(): boolean {
+  const cleaned = this.cardNumber.replace(/\D/g, '');
 
-  public isValid(): boolean {
-    const isValid = this.algoLuhn(this.cardNumber);
-    if (!isValid) {
-      // alert("Erreur : numéro de carte invalide.");
- 
-      return false;
-    }
-
-    return true;
+  // Doit contenir entre 13 et 19 chiffres
+  if (!/^\d{13,19}$/.test(cleaned)) {
+    return false;
   }
+
+  const isValid = this.algoLuhn(cleaned);
+  return isValid;
+}
 }
 
