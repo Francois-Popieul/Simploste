@@ -55,11 +55,11 @@
           <legend class="legend">Informations du vol</legend>
           <div class="formGroup">
             <label for="departureDate">Date de départ :</label>
-            <input type="date" id="departureDate" name="departureDate" required />
+            <input type="datetime-local" id="departureDate" name="departureDate" required />
           </div>
           <div class="formGroup">
             <label for="returnDate">Date de retour :</label>
-            <input type="date" id="returnDate" name="returnDate" required />
+            <input type="datetime-local" id="returnDate" name="returnDate" required />
           </div>
           <div class="formGroup">
             <label for="destinationCity">Destination :</label>
@@ -94,7 +94,7 @@
       <h2>Paiement</h2>
       <form id="paymentForm">
         <div id="paymentFormErrors"></div>
-        <fieldset class="fieldSet">
+        <fieldset class="fieldSet" id="paymentDetails">
           <div class="formGroup">
             <label for="cardType">Méthode de paiement :</label>
             <select id="cardType" name="cardType" required>
@@ -123,15 +123,21 @@
           </div>
         </fieldset>
         <div class="formGroup">
-          <button type="submit">Confirmer le paiement</button>
+          <button type="button" id="validateButton">Valider</button>
+        </div>
+        <div id="paymentSummary" class="summary hidden">
+          <h3>Récapitulatif du paiement</h3>
+          <fieldset class="fieldSet">
+            <p><strong>Moyen de paiement :</strong> <span id="summaryMethod"></span></p>
+            <p><strong>Numéro de carte :</strong> <span id="summaryCard"></span></p>
+            <p><strong>Date d’expiration :</strong> <span id="summaryExpiry"></span></p>
+            <p><strong>Montant à régler :</strong> <span id="summaryTotal"></span></p>
+          </fieldset>
+          <div class="formGroup">
+            <button type="submit">Confirmer le paiement</button>
+          </div>
         </div>
       </form>
-      <div id="paymentSummary" class="summary hidden">
-        <h3>Récapitulatif du paiement</h3>
-        <p><strong>Méthode :</strong> <span id="summaryMethod"></span></p>
-        <p><strong>Carte :</strong> <span id="summaryCard"></span></p>
-        <p><strong>Expiration :</strong> <span id="summaryExpiry"></span></p>
-      </div>
     </section>
 
     <!-- Flight Summary -->
