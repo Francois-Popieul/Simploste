@@ -5,15 +5,18 @@ import { data } from "./data.js";
 import { saveBookingData, getBookingData, clearBookingData } from "./storage.js";
 import { StandingFactory } from "./StandingFactory.js";
 import { AppData } from "./Types/AppData.js";
+import { Destination } from "./Types/Destination.js";
+import { Standing } from "./Types/Standing.js";
+import { AbstractStandingClass } from "./AbstractStandingClass.js";
 
 const bookingPage: HTMLElement | null = document.getElementById("bookingPage");
 const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
 const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
 const bookingForm: HTMLFormElement = document.getElementById("bookingForm") as HTMLFormElement;
 const destinationCity: HTMLElement | null = document.getElementById("destinationCity") as HTMLSelectElement;
-const departureDate = document.getElementById("departureDate") as HTMLInputElement;
-const returnDate = document.getElementById("returnDate") as HTMLInputElement;
-const birthDate = document.getElementById("birthDate") as HTMLInputElement;
+const departureDate: HTMLInputElement = document.getElementById("departureDate") as HTMLInputElement;
+const returnDate: HTMLInputElement = document.getElementById("returnDate") as HTMLInputElement;
+const birthDate: HTMLInputElement = document.getElementById("birthDate") as HTMLInputElement;
 const flightData: Booking = {
   forename: "",
   surname: "",
@@ -42,7 +45,7 @@ if (birthDate) {
 }
 
 function getConstraintDate(length?: string) {
-  const currentDate = new Date();
+  const currentDate: Date = new Date();
   const yyyy: string = currentDate.getFullYear().toString();
   const mm: string = String(currentDate.getMonth() + 1).padStart(2, "0");
   const dd: string = String(currentDate.getDate()).padStart(2, "0");
@@ -57,7 +60,7 @@ function getConstraintDate(length?: string) {
 if (destinationCity) {
   const filteredAndSortedDestinations: any[] = data.destinations.filter(destination => destination.value.toLowerCase() !== "paris").sort((a, b) => a.label.localeCompare(b.label));
   filteredAndSortedDestinations.forEach(destination => {
-    const option = document.createElement("option");
+    const option: HTMLOptionElement = document.createElement("option");
     option.value = destination.value;
     option.innerText = destination.label;
     destinationCity.append(option);
@@ -65,15 +68,15 @@ if (destinationCity) {
 }
 
 function updateTotalPrice() {
-  const destinationSelect = document.getElementById("destinationCity") as HTMLSelectElement;
-  const travelClassInput = document.querySelector('input[name="travelClass"]:checked') as HTMLInputElement | null;
-  const totalPriceField = document.getElementById("totalPrice") as HTMLInputElement;
+  const destinationSelect: HTMLSelectElement = document.getElementById("destinationCity") as HTMLSelectElement;
+  const travelClassInput: HTMLInputElement | null = document.querySelector('input[name="travelClass"]:checked') as HTMLInputElement | null;
+  const totalPriceField: HTMLInputElement = document.getElementById("totalPrice") as HTMLInputElement;
 
   if (destinationSelect && travelClassInput && totalPriceField) {
-    const selectedValue = destinationSelect.value;
-    const selectedStanding = travelClassInput.value;
-    const destinationObject = data.destinations.find(destination => destination.value === selectedValue);
-    const standingObject = data.standing.find(standing => standing.value === selectedStanding);
+    const selectedValue: string = destinationSelect.value;
+    const selectedStanding: string = travelClassInput.value;
+    const destinationObject: Destination | undefined = data.destinations.find(destination => destination.value === selectedValue);
+    const standingObject: Standing | undefined = data.standing.find(standing => standing.value === selectedStanding);
 
     if (destinationObject && standingObject) {
       const totalPrice = destinationObject.distanceFromParis * standingObject.pricePerKm;
@@ -84,12 +87,12 @@ function updateTotalPrice() {
   }
 }
 
-const destinationSelect = document.getElementById("destinationCity") as HTMLSelectElement;
+const destinationSelect: HTMLSelectElement = document.getElementById("destinationCity") as HTMLSelectElement;
 if (destinationSelect) {
   destinationSelect.addEventListener("change", updateTotalPrice);
 }
 
-const travelClassInputs = document.querySelectorAll('input[name="travelClass"]');
+const travelClassInputs: NodeListOf<Element> = document.querySelectorAll('input[name="travelClass"]');
 travelClassInputs.forEach(input => {
   input.addEventListener("change", updateTotalPrice);
 });
@@ -103,7 +106,7 @@ if (bookingForm) {
     if (bookingErrorDiv) {
       bookingErrorDiv.innerHTML = "";
     }
-    const formData = new FormData(bookingForm);
+    const formData: FormData = new FormData(bookingForm);
 
     flightData.forename = formData.get("forename");
     flightData.surname = formData.get("surname");
@@ -160,8 +163,8 @@ if (bookingForm) {
       bookingFormErrors.push("Saisissez une date de retour valide.");
     }
 
-    const departure = flightData.departureDate as string;
-    const returnDate = flightData.returnDate as string;
+    const departure: string = flightData.departureDate as string;
+    const returnDate: string = flightData.returnDate as string;
 
     if (returnDate < departure) {
       bookingFormErrors.push("La date de retour doit être postérieure à la date de départ.");
@@ -185,7 +188,7 @@ if (bookingForm) {
         bookingErrorDiv?.append(paragraph);
       })
     }
-    else {      
+    else {
       bookingPage?.classList.toggle("hidden");
       paymentPage?.classList.toggle("hidden");
     }
@@ -194,15 +197,15 @@ if (bookingForm) {
 
 const paymentForm: HTMLFormElement = document.getElementById("paymentForm") as HTMLFormElement;
 
-const expiryInput = document.getElementById("expiryDate") as HTMLInputElement;
+const expiryInput: HTMLInputElement = document.getElementById("expiryDate") as HTMLInputElement;
 
 if (expiryInput) {
   expiryInput.min = getConstraintDate();
 }
 
-const cardTypeSelect = document.getElementById("cardType") as HTMLSelectElement;
-const securityCodeInput = document.getElementById("securityCode") as HTMLInputElement;
-const codeCardInput = document.getElementById("cardNumber") as HTMLInputElement;
+const cardTypeSelect: HTMLSelectElement = document.getElementById("cardType") as HTMLSelectElement;
+const securityCodeInput: HTMLInputElement = document.getElementById("securityCode") as HTMLInputElement;
+const codeCardInput: HTMLInputElement = document.getElementById("cardNumber") as HTMLInputElement;
 
 
 // change les chiffre de securité en fonction du type de cb//
@@ -223,16 +226,14 @@ cardTypeSelect.addEventListener("change", () => {
 if (paymentForm) {
   paymentForm.addEventListener("submit", event => {
     event.preventDefault();
-    const formData = new FormData(paymentForm);
-    const paymentData = {
+    const formData: FormData = new FormData(paymentForm);
+    const paymentData: PaymentMethod = {
       cardType: formData.get("cardType"),
       cardNumber: formData.get("cardNumber"),
       cardHolder: formData.get("cardHolder"),
       expiryDate: formData.get("expiryDate"),
       CSV: formData.get("securityCode"),
     };
-
-
 
     const paymentFormErrors = document.getElementById("paymentFormErrors");
     // nettoie les anciennes erreurs 
@@ -294,26 +295,26 @@ if (paymentForm) {
 
     const paymentPage = document.getElementById("paymentPage");
 
-    const instance = StandingFactory.create(flightData);
-    console.log("Instance créée via factory :", instance);
-    console.log("Résumé :", instance.getSummary());
-    
+    const instance: AbstractStandingClass = StandingFactory.create(flightData);
+    // console.log("Instance créée via factory :", instance);
+    // console.log("Résumé :", instance.getSummary());
+
     if (summaryPage) {
-      const data = instance.getSummary();
-      const recapName = document.getElementById("recapName");
-      const recapEmail = document.getElementById("recapEmail");
-      const recapPhone = document.getElementById("recapPhone");
-      const recapDestination = document.getElementById("recapDestination");
-      const recapDepartureDate = document.getElementById("recapDepartureDate");
-      const recapReturnDate = document.getElementById("recapReturnDate");
-      const recapClass = document.getElementById("recapClass");
-      const recapPrice = document.getElementById("recapPrice");
-      const recapPerks = document.getElementById("recapPerks");
-      const recapDepartureLocation = document.getElementById("recapDepartureLocation");
-      const recapBookingNumber = document.getElementById("recapBookingNumber");
-      const recapGender = document.getElementById("recapGender");
-      const recapAddress = document.getElementById("recapAddress");
-      const recapDistance = document.getElementById("recapDistance");
+      const data: string[] = instance.getSummary();
+      const recapName: HTMLElement | null = document.getElementById("recapName");
+      const recapEmail: HTMLElement | null = document.getElementById("recapEmail");
+      const recapPhone: HTMLElement | null = document.getElementById("recapPhone");
+      const recapDestination: HTMLElement | null = document.getElementById("recapDestination");
+      const recapDepartureDate: HTMLElement | null = document.getElementById("recapDepartureDate");
+      const recapReturnDate: HTMLElement | null = document.getElementById("recapReturnDate");
+      const recapClass: HTMLElement | null = document.getElementById("recapClass");
+      const recapPrice: HTMLElement | null = document.getElementById("recapPrice");
+      const recapPerks: HTMLElement | null = document.getElementById("recapPerks");
+      const recapDepartureLocation: HTMLElement | null = document.getElementById("recapDepartureLocation");
+      const recapBookingNumber: HTMLElement | null = document.getElementById("recapBookingNumber");
+      const recapGender: HTMLElement | null = document.getElementById("recapGender");
+      const recapAddress: HTMLElement | null = document.getElementById("recapAddress");
+      const recapDistance: HTMLElement | null = document.getElementById("recapDistance");
 
       if (recapName) {
         recapName.innerText = data[1];
@@ -361,8 +362,8 @@ if (paymentForm) {
       paymentPage?.classList.toggle("hidden");
     }
   });
-  const cancelButton = document.getElementById("cancelButton");
-  const viewReservationButton = document.getElementById("viewReservationButton");
+  const cancelButton: HTMLElement | null = document.getElementById("cancelButton");
+  const viewReservationButton: HTMLElement | null = document.getElementById("viewReservationButton");
   cancelButton?.addEventListener("click", () => {
     bookingForm.reset();
     paymentForm.reset();
@@ -377,7 +378,7 @@ if (paymentForm) {
     flightData.destinationCity = "";
     flightData.returnDate = "";
     flightData.travelClass = "";
-    flightData.totalPrice = "";    
+    flightData.totalPrice = "";
     bookingPage?.classList.remove("hidden");
     summaryPage?.classList.add("hidden");
     paymentPage?.classList.add("hidden");
