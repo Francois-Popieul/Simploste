@@ -12,6 +12,7 @@ import { AbstractStandingClass } from "./AbstractStandingClass.js";
 const bookingPage: HTMLElement | null = document.getElementById("bookingPage");
 const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
 const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
+const reservationNumberInputPage: HTMLElement | null = document.getElementById("reservationNumberInputPage");
 const bookingForm: HTMLFormElement = document.getElementById("bookingForm") as HTMLFormElement;
 const destinationCity: HTMLElement | null = document.getElementById("destinationCity") as HTMLSelectElement;
 const departureDate: HTMLInputElement = document.getElementById("departureDate") as HTMLInputElement;
@@ -290,7 +291,7 @@ if (paymentForm) {
     }
 
     // si il y a une erreur bloque
-    if (errorFound) return;   
+    if (errorFound) return;
 
     const instance: AbstractStandingClass = StandingFactory.create(flightData);
     // console.log("Instance créée via factory :", instance);
@@ -298,73 +299,19 @@ if (paymentForm) {
 
     if (summaryPage) {
       const data: string[] = instance.getSummary();
-      const recapName: HTMLElement | null = document.getElementById("recapName");
-      const recapEmail: HTMLElement | null = document.getElementById("recapEmail");
-      const recapPhone: HTMLElement | null = document.getElementById("recapPhone");
-      const recapDestination: HTMLElement | null = document.getElementById("recapDestination");
-      const recapDepartureDate: HTMLElement | null = document.getElementById("recapDepartureDate");
-      const recapReturnDate: HTMLElement | null = document.getElementById("recapReturnDate");
-      const recapClass: HTMLElement | null = document.getElementById("recapClass");
-      const recapPrice: HTMLElement | null = document.getElementById("recapPrice");
-      const recapPerks: HTMLElement | null = document.getElementById("recapPerks");
-      const recapDepartureLocation: HTMLElement | null = document.getElementById("recapDepartureLocation");
-      const recapBookingNumber: HTMLElement | null = document.getElementById("recapBookingNumber");
-      const recapGender: HTMLElement | null = document.getElementById("recapGender");
-      const recapAddress: HTMLElement | null = document.getElementById("recapAddress");
-      const recapDistance: HTMLElement | null = document.getElementById("recapDistance");
       saveBookingData(data[13], data);
-
-      if (recapName) {
-        recapName.innerText = data[1];
-      }
-      if (recapGender) {
-        recapGender.innerText = data[2];
-      }
-      if (recapEmail) {
-        recapEmail.innerText = data[6];
-      }
-      if (recapPhone) {
-        recapPhone.innerText = data[5];
-      }
-      if (recapAddress) {
-        recapAddress.innerText = data[4];
-      }
-      if (recapDepartureLocation) {
-        recapDepartureLocation.innerText = data[8];
-      }
-      if (recapDestination) {
-        recapDestination.innerText = data[9];
-      }
-      if (recapDepartureDate) {
-        recapDepartureDate.innerText = data[7];
-      }
-      if (recapReturnDate) {
-        recapReturnDate.innerText = data[10];
-      }
-      if (recapDistance) {
-        recapDistance.innerText = data[11];
-      }
-      if (recapClass) {
-        recapClass.innerText = data[0];
-      }
-      if (recapPrice) {
-        recapPrice.innerText = data[12];
-      }
-      if (recapPerks) {
-        recapPerks.innerText = data[14];
-      }
-      if (recapBookingNumber) {
-        recapBookingNumber.innerText = data[13];
-      }
+      fillFlightRecap(data);
       summaryPage?.classList.toggle("hidden");
       paymentPage?.classList.toggle("hidden");
     }
   });
   const cancelButton: HTMLElement | null = document.getElementById("cancelButton");
   const viewReservationButton: HTMLElement | null = document.getElementById("viewReservationButton");
+  const reservationNumberInputForm = document.getElementById("reservationNumberInputForm");
   cancelButton?.addEventListener("click", () => {
     bookingForm.reset();
     paymentForm.reset();
+
     flightData.forename = "";
     flightData.surname = "";
     flightData.gender = "";
@@ -378,10 +325,91 @@ if (paymentForm) {
     flightData.travelClass = "";
     flightData.totalPrice = "";
     bookingPage?.classList.remove("hidden");
+    viewReservationButton?.classList.remove("hidden");
     summaryPage?.classList.add("hidden");
     paymentPage?.classList.add("hidden");
+    reservationNumberInputPage?.classList.add("hidden");
   });
   viewReservationButton?.addEventListener("click", () => {
-
+    bookingPage?.classList.add("hidden");
+    summaryPage?.classList.add("hidden");
+    paymentPage?.classList.add("hidden");
+    viewReservationButton?.classList.add("hidden");
+    reservationNumberInputPage?.classList.remove("hidden");
   })
+
+  if (reservationNumberInputForm) {
+    reservationNumberInputForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const reservationNumberInput: HTMLInputElement = document.getElementById("reservationNumber") as HTMLInputElement;
+      const reservationNumber = reservationNumberInput?.value;
+      const bookingData: string[] | null = getBookingData(reservationNumber);
+      // alert(bookingData);
+      if (bookingData) {
+        fillFlightRecap(bookingData);
+        summaryPage?.classList.remove("hidden");
+        viewReservationButton?.classList.remove("hidden");
+        reservationNumberInputPage?.classList.add("hidden");
+      }
+    })
+  }
+
+  function fillFlightRecap(data: string[]): void {
+    const recapName: HTMLElement | null = document.getElementById("recapName");
+    const recapEmail: HTMLElement | null = document.getElementById("recapEmail");
+    const recapPhone: HTMLElement | null = document.getElementById("recapPhone");
+    const recapDestination: HTMLElement | null = document.getElementById("recapDestination");
+    const recapDepartureDate: HTMLElement | null = document.getElementById("recapDepartureDate");
+    const recapReturnDate: HTMLElement | null = document.getElementById("recapReturnDate");
+    const recapClass: HTMLElement | null = document.getElementById("recapClass");
+    const recapPrice: HTMLElement | null = document.getElementById("recapPrice");
+    const recapPerks: HTMLElement | null = document.getElementById("recapPerks");
+    const recapDepartureLocation: HTMLElement | null = document.getElementById("recapDepartureLocation");
+    const recapBookingNumber: HTMLElement | null = document.getElementById("recapBookingNumber");
+    const recapGender: HTMLElement | null = document.getElementById("recapGender");
+    const recapAddress: HTMLElement | null = document.getElementById("recapAddress");
+    const recapDistance: HTMLElement | null = document.getElementById("recapDistance");
+    if (recapName) {
+      recapName.innerText = data[1];
+    }
+    if (recapGender) {
+      recapGender.innerText = data[2];
+    }
+    if (recapEmail) {
+      recapEmail.innerText = data[6];
+    }
+    if (recapPhone) {
+      recapPhone.innerText = data[5];
+    }
+    if (recapAddress) {
+      recapAddress.innerText = data[4];
+    }
+    if (recapDepartureLocation) {
+      recapDepartureLocation.innerText = data[8];
+    }
+    if (recapDestination) {
+      recapDestination.innerText = data[9];
+    }
+    if (recapDepartureDate) {
+      recapDepartureDate.innerText = data[7];
+    }
+    if (recapReturnDate) {
+      recapReturnDate.innerText = data[10];
+    }
+    if (recapDistance) {
+      recapDistance.innerText = data[11];
+    }
+    if (recapClass) {
+      recapClass.innerText = data[0];
+    }
+    if (recapPrice) {
+      recapPrice.innerText = data[12];
+    }
+    if (recapPerks) {
+      recapPerks.innerText = data[14];
+    }
+    if (recapBookingNumber) {
+      recapBookingNumber.innerText = data[13];
+    }
+  }
 }

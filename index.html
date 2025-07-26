@@ -182,6 +182,24 @@
         </li>
       </ul>
     </section>
+
+    <!-- Reservation Number Input Form -->
+    <section class="pageWrapper hidden" id="reservationNumberInputPage">
+      <h2>Votre réservation</h2>
+      <form id="reservationNumberInputForm">
+        <fieldset class="fieldSet">
+          <div class="formGroup">
+            <label for="reservationNumber">Numéro de réservation :</label>
+            <input type="text" id="reservationNumber" name="reservationNumber" required />
+          </div>
+        </fieldset>
+        <div class="formGroup">
+          <button type="submit">Consulter</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Always Visible Cancel and View Reservation Buttons -->
     <section class="pageWrapper formGroup">
       <button type="button" id="cancelButton">Annuler</button>
       <button type="button" id="viewReservationButton">Voir ma réservation</button>
