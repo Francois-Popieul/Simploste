@@ -45,7 +45,7 @@ if (birthDate) {
   birthDate.max = getConstraintDate("long");
 }
 
-function getConstraintDate(length?: string) {
+function getConstraintDate(length?: string): string {
   const currentDate: Date = new Date();
   const yyyy: string = currentDate.getFullYear().toString();
   const mm: string = String(currentDate.getMonth() + 1).padStart(2, "0");
@@ -80,7 +80,7 @@ function updateTotalPrice() {
     const standingObject: Standing | undefined = data.standing.find(standing => standing.value === selectedStanding);
 
     if (destinationObject && standingObject) {
-      const totalPrice = destinationObject.distanceFromParis * standingObject.pricePerKm;
+      const totalPrice: number = destinationObject.distanceFromParis * standingObject.pricePerKm;
       totalPriceField.value = totalPrice.toString();
     } else {
       totalPriceField.value = "";
@@ -307,7 +307,7 @@ if (paymentForm) {
   });
   const cancelButton: HTMLElement | null = document.getElementById("cancelButton");
   const viewReservationButton: HTMLElement | null = document.getElementById("viewReservationButton");
-  const reservationNumberInputForm = document.getElementById("reservationNumberInputForm");
+  const reservationNumberInputForm: HTMLElement | null = document.getElementById("reservationNumberInputForm");
   cancelButton?.addEventListener("click", () => {
     bookingForm.reset();
     paymentForm.reset();
@@ -342,9 +342,9 @@ if (paymentForm) {
     reservationNumberInputForm.addEventListener("submit", event => {
       event.preventDefault();
       const reservationNumberInput: HTMLInputElement = document.getElementById("reservationNumber") as HTMLInputElement;
-      const reservationNumber = reservationNumberInput?.value;
+      const reservationNumber: string = reservationNumberInput?.value;
       const bookingData: string[] | null = getBookingData(reservationNumber);
-      // alert(bookingData);
+      
       if (bookingData) {
         fillFlightRecap(bookingData);
         summaryPage?.classList.remove("hidden");
