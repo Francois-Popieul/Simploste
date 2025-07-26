@@ -18,6 +18,9 @@ const destinationCity: HTMLElement | null = document.getElementById("destination
 const departureDate: HTMLInputElement = document.getElementById("departureDate") as HTMLInputElement;
 const returnDate: HTMLInputElement = document.getElementById("returnDate") as HTMLInputElement;
 const birthDate: HTMLInputElement = document.getElementById("birthDate") as HTMLInputElement;
+const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
+const paymentDetails: HTMLElement | null = document.getElementById("paymentDetails");
+const paymentSummary = document.getElementById("paymentSummary");
 const flightData: Booking = {
   forename: "",
   surname: "",
@@ -32,17 +35,24 @@ const flightData: Booking = {
   travelClass: "",
   totalPrice: "",
 }
+const paymentData: PaymentMethod = {
+  cardType: "",
+  cardNumber: "",
+  CSV: "",
+  expiryDate: "",
+  cardHolder: "",
+}
 
 if (departureDate) {
-  departureDate.min = getConstraintDate("long");
+  departureDate.min = getConstraintDate("date-and-time");
 }
 
 if (returnDate) {
-  returnDate.min = getConstraintDate("long");
+  returnDate.min = getConstraintDate("date-and-time");
 }
 
 if (birthDate) {
-  birthDate.max = getConstraintDate("long");
+  birthDate.max = getConstraintDate("complete-date");
 }
 
 function getConstraintDate(length?: string): string {
@@ -50,7 +60,12 @@ function getConstraintDate(length?: string): string {
   const yyyy: string = currentDate.getFullYear().toString();
   const mm: string = String(currentDate.getMonth() + 1).padStart(2, "0");
   const dd: string = String(currentDate.getDate()).padStart(2, "0");
-  if (length == "long") {
+  const hh = String(currentDate.getHours()).padStart(2, "0");
+  const min = String(currentDate.getMinutes()).padStart(2, "0");
+  if (length == "date-and-time") {
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+  }
+  else if (length == "complete-date") {
     return `${yyyy}-${mm}-${dd}`;
   }
   else {
@@ -111,7 +126,13 @@ if (bookingForm) {
 
     flightData.forename = formData.get("forename");
     flightData.surname = formData.get("surname");
-    flightData.gender = formData.get("gender");
+    const selectedGender: string | undefined = formData.get("gender")?.toString();
+    if (selectedGender === "male") {
+      flightData.gender = "homme";
+    }
+    else {
+      flightData.gender = "femme";
+    }
     flightData.birthDate = formData.get("birthDate");
     flightData.address = formData.get("address");
     flightData.phone = formData.get("phone");
@@ -209,7 +230,7 @@ const securityCodeInput: HTMLInputElement = document.getElementById("securityCod
 const codeCardInput: HTMLInputElement = document.getElementById("cardNumber") as HTMLInputElement;
 
 
-// change les chiffre de securité en fonction du type de cb//
+// Change les chiffres de securité en fonction du type de cb
 cardTypeSelect.addEventListener("change", () => {
   if (cardTypeSelect.value === "amex") {
     securityCodeInput.maxLength = 4;
@@ -224,17 +245,16 @@ cardTypeSelect.addEventListener("change", () => {
   codeCardInput.value = "";
 });
 
-if (paymentForm) {
-  paymentForm.addEventListener("submit", event => {
-    event.preventDefault();
+const validateButton: HTMLElement | null = document.getElementById("validateButton");
+if (paymentForm && validateButton) {
+  validateButton.addEventListener("click", () => {
     const formData: FormData = new FormData(paymentForm);
-    const paymentData: PaymentMethod = {
-      cardType: formData.get("cardType"),
-      cardNumber: formData.get("cardNumber"),
-      cardHolder: formData.get("cardHolder"),
-      expiryDate: formData.get("expiryDate"),
-      CSV: formData.get("securityCode"),
-    };
+
+    paymentData.cardType = formData.get("cardType");
+    paymentData.cardNumber = formData.get("cardNumber");
+    paymentData.cardHolder = formData.get("cardHolder");
+    paymentData.expiryDate = formData.get("expiryDate");
+    paymentData.CSV = formData.get("securityCode");
 
     const paymentFormErrors: HTMLElement | null = document.getElementById("paymentFormErrors");
     // nettoie les anciennes erreurs 
@@ -276,7 +296,6 @@ if (paymentForm) {
     // Validation du numero de carte
     if (typeof paymentData.cardNumber === "string") {
       const card: PayCard = new PayCard(paymentData.cardNumber);
-      const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
 
       if (cardValidityMessage) {
         if (card.isValid()) {
@@ -290,9 +309,42 @@ if (paymentForm) {
       }
     }
 
-    // si il y a une erreur bloque
+    // S'il y a une erreur, bloque
     if (errorFound) return;
 
+    else {
+      const summaryMethod: HTMLElement | null = document.getElementById("summaryMethod");
+      const summaryCard: HTMLElement | null = document.getElementById("summaryCard");
+      const summaryExpiry: HTMLElement | null = document.getElementById("summaryExpiry");
+      const summaryTotal: HTMLElement | null = document.getElementById("summaryTotal");
+
+      if (summaryMethod && paymentData.cardType) {
+        summaryMethod.innerText = paymentData.cardType.toString().toUpperCase();
+      }
+      if (summaryCard && paymentData.cardNumber) {
+        summaryCard.innerText = hideCardNumber(paymentData.cardNumber.toString().replace(/[\s-]/g, ''));
+      }
+      if (summaryExpiry && paymentData.expiryDate) {
+        summaryExpiry.innerText = paymentData.expiryDate.toString();
+      }
+      if (summaryTotal && flightData.totalPrice) {
+        summaryTotal.innerText = `${flightData.totalPrice.toString()} €`;
+      }
+      paymentDetails?.classList.add("hidden");
+      validateButton.classList.add("hidden");
+      paymentSummary?.classList.remove("hidden");
+    }
+  });
+
+  function hideCardNumber(number: string): string {
+    const cardNumberLength: number = number.length;
+    const hiddenNumber = number.slice(-4).padStart(cardNumberLength, "*");
+    return hiddenNumber;
+  }
+
+
+  paymentForm.addEventListener("submit", event => {
+    event.preventDefault();
     const instance: AbstractStandingClass = StandingFactory.create(flightData);
     // console.log("Instance créée via factory :", instance);
     // console.log("Résumé :", instance.getSummary());
@@ -301,17 +353,17 @@ if (paymentForm) {
       const data: string[] = instance.getSummary();
       saveBookingData(data[13], data);
       fillFlightRecap(data);
-      summaryPage?.classList.toggle("hidden");
-      paymentPage?.classList.toggle("hidden");
+      summaryPage?.classList.remove("hidden");
+      paymentPage?.classList.add("hidden");
     }
-  });
+  })
+
   const cancelButton: HTMLElement | null = document.getElementById("cancelButton");
   const viewReservationButton: HTMLElement | null = document.getElementById("viewReservationButton");
   const reservationNumberInputForm: HTMLElement | null = document.getElementById("reservationNumberInputForm");
   cancelButton?.addEventListener("click", () => {
     bookingForm.reset();
     paymentForm.reset();
-
     flightData.forename = "";
     flightData.surname = "";
     flightData.gender = "";
@@ -324,10 +376,19 @@ if (paymentForm) {
     flightData.returnDate = "";
     flightData.travelClass = "";
     flightData.totalPrice = "";
+    paymentData.cardType = "";
+    paymentData.cardNumber = "";
+    paymentData.CSV = "";
+    paymentData.expiryDate = "";
+    paymentData.cardHolder = "";
+    if (cardValidityMessage) { cardValidityMessage.textContent = ""; }
     bookingPage?.classList.remove("hidden");
     viewReservationButton?.classList.remove("hidden");
+    validateButton?.classList.remove("hidden");
     summaryPage?.classList.add("hidden");
     paymentPage?.classList.add("hidden");
+    paymentDetails?.classList.remove("hidden");
+    paymentSummary?.classList.add("hidden");
     reservationNumberInputPage?.classList.add("hidden");
   });
   viewReservationButton?.addEventListener("click", () => {
@@ -344,7 +405,7 @@ if (paymentForm) {
       const reservationNumberInput: HTMLInputElement = document.getElementById("reservationNumber") as HTMLInputElement;
       const reservationNumber: string = reservationNumberInput?.value;
       const bookingData: string[] | null = getBookingData(reservationNumber);
-      
+
       if (bookingData) {
         fillFlightRecap(bookingData);
         summaryPage?.classList.remove("hidden");
@@ -354,7 +415,7 @@ if (paymentForm) {
     })
   }
 
-  function fillFlightRecap(data: string[]): void {
+  function fillFlightRecap(details: string[]): void {
     const recapName: HTMLElement | null = document.getElementById("recapName");
     const recapEmail: HTMLElement | null = document.getElementById("recapEmail");
     const recapPhone: HTMLElement | null = document.getElementById("recapPhone");
@@ -370,46 +431,46 @@ if (paymentForm) {
     const recapAddress: HTMLElement | null = document.getElementById("recapAddress");
     const recapDistance: HTMLElement | null = document.getElementById("recapDistance");
     if (recapName) {
-      recapName.innerText = data[1];
+      recapName.innerText = details[1];
     }
     if (recapGender) {
-      recapGender.innerText = data[2];
+      recapGender.innerText = details[2];
     }
     if (recapEmail) {
-      recapEmail.innerText = data[6];
+      recapEmail.innerText = details[6];
     }
     if (recapPhone) {
-      recapPhone.innerText = data[5];
+      recapPhone.innerText = details[5];
     }
     if (recapAddress) {
-      recapAddress.innerText = data[4];
+      recapAddress.innerText = details[4];
     }
     if (recapDepartureLocation) {
-      recapDepartureLocation.innerText = data[8];
+      recapDepartureLocation.innerText = details[8];
     }
     if (recapDestination) {
-      recapDestination.innerText = data[9];
+      recapDestination.innerText = data.destinations.find((destination) => destination.value === details[9])?.label ?? "";
     }
     if (recapDepartureDate) {
-      recapDepartureDate.innerText = data[7];
+      recapDepartureDate.innerText = details[7].replace(/^(\d{4})-(\d{2})-(\d{2})T(\d{1,2}):(\d{2})$/, "$3/$2/$1 à $4 h $5");
     }
     if (recapReturnDate) {
-      recapReturnDate.innerText = data[10];
+      recapReturnDate.innerText = details[10].replace(/^(\d{4})-(\d{2})-(\d{2})T(\d{1,2}):(\d{2})$/, "$3/$2/$1 à $4 h $5");
     }
     if (recapDistance) {
-      recapDistance.innerText = data[11];
+      recapDistance.innerText = details[11];
     }
     if (recapClass) {
-      recapClass.innerText = data[0];
+      recapClass.innerText = details[0];
     }
     if (recapPrice) {
-      recapPrice.innerText = data[12];
+      recapPrice.innerText = details[12];
     }
     if (recapPerks) {
-      recapPerks.innerText = data[14];
+      recapPerks.innerText = details[14].replace(/,/g, ", ").toLowerCase();
     }
     if (recapBookingNumber) {
-      recapBookingNumber.innerText = data[13];
+      recapBookingNumber.innerText = details[13];
     }
   }
 }
