@@ -10,7 +10,7 @@ export class StandingFactory {
     const standingData = data.standing.find(
       s => s.value === booking.travelClass
     );
-    const perks = standingData?.perks ?? [];
+    const perks: string[] = standingData?.perks ?? [];
 
     console.log("Classe choisie :", booking.travelClass);
 

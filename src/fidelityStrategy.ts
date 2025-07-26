@@ -7,11 +7,13 @@ export class EconomyFidelity implements FidelityStrategy {
     return Math.floor(distance / 100) * 1;
   }
 }
+
 export class BusinessFidelity implements FidelityStrategy {
   calculatePoints(distance: number): number {
     return Math.floor(distance / 100) * 2;
   }
 }
+
 export class FirstClassFidelity implements FidelityStrategy {
   calculatePoints(distance: number): number {
     return Math.floor(distance / 100) * 3;
@@ -39,6 +41,7 @@ export class MasterCardMultiplier implements CardMultiplier {
     return 1.5;
   }
 }
+
 export class FidelityManager {
   private strategy: FidelityStrategy;
   private multiplier: CardMultiplier;
