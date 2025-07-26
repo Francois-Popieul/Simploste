@@ -235,18 +235,18 @@ if (paymentForm) {
       CSV: formData.get("securityCode"),
     };
 
-    const paymentFormErrors = document.getElementById("paymentFormErrors");
+    const paymentFormErrors: HTMLElement | null = document.getElementById("paymentFormErrors");
     // nettoie les anciennes erreurs 
     if (paymentFormErrors) paymentFormErrors.innerHTML = "";
 
-    let errorFound = false;
+    let errorFound: boolean = false;
 
     //verification name
     const nameRegEx: RegExp = /^[A-Za-zÀ-ÿ\s'-]{3,}$/;
-    const cardHolder = paymentData.cardHolder?.toString().trim() || "";
+    const cardHolder: string = paymentData.cardHolder?.toString().trim() || "";
 
     if (!nameRegEx.test(cardHolder)) {
-      const errorText = document.createElement("p");
+      const errorText: HTMLParagraphElement = document.createElement("p");
       errorText.textContent = "Le nom du titulaire est invalide.";
       errorText.style.color = "red";
       errorText.style.zIndex = "1000";
@@ -255,16 +255,16 @@ if (paymentForm) {
     }
 
     //Validation du numéro de carte et code secret
-    const cardNumber = paymentData.cardNumber?.toString().trim() || "";
-    const csv = paymentData.CSV?.toString().trim() || "";
-    const cardType = paymentData.cardType?.toString();
+    const cardNumber: string = paymentData.cardNumber?.toString().trim() || "";
+    const csv: string = paymentData.CSV?.toString().trim() || "";
+    const cardType: string | undefined = paymentData.cardType?.toString();
 
     if (
       !/^\d{13,19}$/.test(cardNumber.replace(/\s+/g, "")) ||
       (cardType === "amex" && !/^\d{4}$/.test(csv)) ||
       (cardType !== "amex" && !/^\d{3}$/.test(csv))
     ) {
-      const errorText = document.createElement("p");
+      const errorText: HTMLParagraphElement = document.createElement("p");
       errorText.textContent = "Le numéro de carte ou le code de sécurité est invalide.";
       errorText.style.color = "red";
       errorText.style.zIndex = "1000";
@@ -274,7 +274,7 @@ if (paymentForm) {
 
     // Validation du numero de carte
     if (typeof paymentData.cardNumber === "string") {
-      const card = new PayCard(paymentData.cardNumber);
+      const card: PayCard = new PayCard(paymentData.cardNumber);
       const cardValidityMessage: HTMLElement | null = document.getElementById("cardValidityMessage");
 
       if (cardValidityMessage) {
@@ -290,10 +290,7 @@ if (paymentForm) {
     }
 
     // si il y a une erreur bloque
-    if (errorFound) return;
-
-
-    const paymentPage = document.getElementById("paymentPage");
+    if (errorFound) return;   
 
     const instance: AbstractStandingClass = StandingFactory.create(flightData);
     // console.log("Instance créée via factory :", instance);
@@ -315,6 +312,7 @@ if (paymentForm) {
       const recapGender: HTMLElement | null = document.getElementById("recapGender");
       const recapAddress: HTMLElement | null = document.getElementById("recapAddress");
       const recapDistance: HTMLElement | null = document.getElementById("recapDistance");
+      saveBookingData(data[13], data);
 
       if (recapName) {
         recapName.innerText = data[1];

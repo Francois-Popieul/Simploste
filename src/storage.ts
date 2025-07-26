@@ -3,9 +3,9 @@ import type { Booking } from "./bookingInterface";
 const STORAGE_KEY = "flightData";
 
 // Sauvgarde la réservation
-export function saveBookingData(data: Booking): void {
+export function saveBookingData(key: string, data: string[]): void {
     try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        localStorage.setItem(key, JSON.stringify(data));
     } catch (error) {
         console.error("Erreur lors de la sauvegarde dans le localStorage :", Error);
     }
