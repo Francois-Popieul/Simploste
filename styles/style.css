@@ -123,7 +123,8 @@ form>.formGroup:last-child {
   justify-content: center;
 }
 
-button, button[type="submit"] {
+button,
+button[type="submit"] {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   border: none;
@@ -136,7 +137,8 @@ button, button[type="submit"] {
   width: 15rem;
 }
 
-button:hover, button[type="submit"]:hover {
+button:hover,
+button[type="submit"]:hover {
   background-color: var(--buttonHoverColor);
 }
 
