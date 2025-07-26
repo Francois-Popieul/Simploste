@@ -15,8 +15,7 @@
     <!-- Booking Form -->
     <section class="pageWrapper" id="bookingPage">
       <h2>Réservation d’un voyage</h2>
-      <form id="bookingForm">
-        <div id="bookingFormErrors"></div>
+      <form id="bookingForm">        
         <fieldset class="fieldSet">
           <legend class="legend">Informations personnelles</legend>
           <div class="formGroup">
@@ -81,6 +80,7 @@
             <label for="totalPrice">Prix total (€) :</label>
             <input type="text" id="totalPrice" name="totalPrice" readonly />
           </div>
+          <div id="bookingFormErrors"></div>
         </fieldset>
 
         <div class="formGroup">
@@ -181,6 +181,10 @@
           <strong>Numéro de réservation :</strong> <span id="recapBookingNumber"></span>
         </li>
       </ul>
+    </section>
+    <section class="pageWrapper formGroup">
+      <button type="button" id="cancelButton">Annuler</button>
+      <button type="button" id="viewReservationButton">Voir ma réservation</button>
     </section>
   </main>
   <script src="./dist/main.js" type="module"></script>

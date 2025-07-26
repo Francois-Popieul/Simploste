@@ -7,7 +7,7 @@ Bienvenue sur le projet *Simple Airlines*, une application de réservation de vo
 
 ![Formulaire de réservation](./images/Simple_Airlines.png "Formulaire de réservation")
 
-Ce projet a été réalisé par une équipe de 4 développeurs juniors dans le cadre de la formation JavaScript/TypeScript proposée par **Simplonline Grenoble**.
+Ce projet a été réalisé par une équipe de 4 développeurs juniors dans le cadre de la formation JavaScript/TypeScript proposée par **Simplon Grenoble**.
 
 ---
 

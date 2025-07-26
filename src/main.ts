@@ -6,6 +6,9 @@ import { saveBookingData, getBookingData, clearBookingData } from "./storage.js"
 import { StandingFactory } from "./StandingFactory.js";
 import { AppData } from "./Types/AppData.js";
 
+const bookingPage: HTMLElement | null = document.getElementById("bookingPage");
+const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
+const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
 const bookingForm: HTMLFormElement = document.getElementById("bookingForm") as HTMLFormElement;
 const destinationCity: HTMLElement | null = document.getElementById("destinationCity") as HTMLSelectElement;
 const departureDate = document.getElementById("departureDate") as HTMLInputElement;
@@ -182,10 +185,7 @@ if (bookingForm) {
         bookingErrorDiv?.append(paragraph);
       })
     }
-    else {
-
-      const bookingPage: HTMLElement | null = document.getElementById("bookingPage");
-      const paymentPage: HTMLElement | null = document.getElementById("paymentPage");
+    else {      
       bookingPage?.classList.toggle("hidden");
       paymentPage?.classList.toggle("hidden");
     }
@@ -297,8 +297,7 @@ if (paymentForm) {
     const instance = StandingFactory.create(flightData);
     console.log("Instance créée via factory :", instance);
     console.log("Résumé :", instance.getSummary());
-
-    const summaryPage: HTMLElement | null = document.getElementById("summaryPage");
+    
     if (summaryPage) {
       const data = instance.getSummary();
       const recapName = document.getElementById("recapName");
@@ -362,4 +361,28 @@ if (paymentForm) {
       paymentPage?.classList.toggle("hidden");
     }
   });
+  const cancelButton = document.getElementById("cancelButton");
+  const viewReservationButton = document.getElementById("viewReservationButton");
+  cancelButton?.addEventListener("click", () => {
+    bookingForm.reset();
+    paymentForm.reset();
+    flightData.forename = "";
+    flightData.surname = "";
+    flightData.gender = "";
+    flightData.birthDate = "";
+    flightData.address = "";
+    flightData.phone = "";
+    flightData.email = "";
+    flightData.departureDate = "";
+    flightData.destinationCity = "";
+    flightData.returnDate = "";
+    flightData.travelClass = "";
+    flightData.totalPrice = "";    
+    bookingPage?.classList.remove("hidden");
+    summaryPage?.classList.add("hidden");
+    paymentPage?.classList.add("hidden");
+  });
+  viewReservationButton?.addEventListener("click", () => {
+
+  })
 }
