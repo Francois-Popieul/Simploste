@@ -1,4 +1,3 @@
-dist
 node_modules
 ressources
 import type { Booking } from "./bookingInterface.js";
