@@ -36,3 +36,10 @@ L’objectif était de concevoir une application web intégrant :
 - VSCode
 - Git / GitHub
 - HTML5 / CSS3 / TypeScript
+
+## 👥 Membres de l'équipe
+
+- **François Popieul**
+- **Fouzy Chikouche**
+- **Marc Ubertalli**
+- **Indian Vella**

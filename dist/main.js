@@ -113,7 +113,7 @@ if (bookingForm) {
         if (selectedGender === "male") {
             flightData.gender = "homme";
         }
-        else {
+        else if (selectedGender === "female") {
             flightData.gender = "femme";
         }
         flightData.birthDate = formData.get("birthDate");
@@ -136,7 +136,7 @@ if (bookingForm) {
         if (!flightData.surname || !nameRegEx.test(flightData.surname.toString())) {
             bookingFormErrors.push("Saisissez un nom valide d'au moins 3 caractères.");
         }
-        if (!flightData.gender || flightData.gender == null || flightData.gender == undefined) {
+        if (!flightData.gender || !["homme", "femme"].includes(flightData.gender.toString())) {
             bookingFormErrors.push("Indiquez votre sexe.");
         }
         if (!flightData.birthDate || !dateRegEx.test(flightData.birthDate.toString())) {
