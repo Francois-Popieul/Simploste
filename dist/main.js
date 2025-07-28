@@ -129,7 +129,8 @@ if (bookingForm) {
         const phoneRegEx = /^[0-9]{10}$/;
         const emailRegEx = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
         const addressRegEx = /^[A-Za-zÀ-ÿ0-9\s,'\-\.\/]{10,150}$/;
-        const dateRegEx = /\d{4}\-\d{2}\-\d{2}/;
+        const dateRegEx = /\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}/;
+        const birthdateRegEx = /\d{4}\-\d{2}\-\d{2}/;
         if (!flightData.forename || !nameRegEx.test(flightData.forename.toString())) {
             bookingFormErrors.push("Saisissez un prénom valide d'au moins 3 caractères.");
         }
@@ -139,7 +140,7 @@ if (bookingForm) {
         if (!flightData.gender || !["homme", "femme"].includes(flightData.gender.toString())) {
             bookingFormErrors.push("Indiquez votre sexe.");
         }
-        if (!flightData.birthDate || !dateRegEx.test(flightData.birthDate.toString())) {
+        if (!flightData.birthDate || !birthdateRegEx.test(flightData.birthDate.toString())) {
             bookingFormErrors.push("Indiquez votre date de naissance." + ((_b = flightData.birthDate) === null || _b === void 0 ? void 0 : _b.toString()));
         }
         if (!flightData.email || !emailRegEx.test(flightData.email.toString())) {
@@ -249,6 +250,7 @@ if (paymentForm && validateButton) {
         if (typeof paymentData.cardNumber === "string") {
             const card = new PayCard(paymentData.cardNumber);
             if (cardValidityMessage) {
+                cardValidityMessage.classList.remove("hidden");
                 if (card.isValid()) {
                     cardValidityMessage.textContent = "✅";
                     cardValidityMessage.style.color = "green";
@@ -335,6 +337,7 @@ if (paymentForm && validateButton) {
         summaryPage === null || summaryPage === void 0 ? void 0 : summaryPage.classList.add("hidden");
         paymentPage === null || paymentPage === void 0 ? void 0 : paymentPage.classList.add("hidden");
         paymentDetails === null || paymentDetails === void 0 ? void 0 : paymentDetails.classList.remove("hidden");
+        cardValidityMessage === null || cardValidityMessage === void 0 ? void 0 : cardValidityMessage.classList.add("hidden");
         paymentSummary === null || paymentSummary === void 0 ? void 0 : paymentSummary.classList.add("hidden");
         reservationNumberInputPage === null || reservationNumberInputPage === void 0 ? void 0 : reservationNumberInputPage.classList.add("hidden");
     });
