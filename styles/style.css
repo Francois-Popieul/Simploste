@@ -133,8 +133,12 @@ button[type="submit"] {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0.25rem auto;
+  margin: 0.5rem auto;
   width: 15rem;
+}
+
+button:not([type="submit"]) {
+  margin: 1rem auto;
 }
 
 button:hover,

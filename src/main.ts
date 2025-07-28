@@ -147,7 +147,8 @@ if (bookingForm) {
     const phoneRegEx: RegExp = /^[0-9]{10}$/;
     const emailRegEx: RegExp = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
     const addressRegEx: RegExp = /^[A-Za-zÀ-ÿ0-9\s,'\-\.\/]{10,150}$/;
-    const dateRegEx: RegExp = /\d{4}\-\d{2}\-\d{2}/;
+    const dateRegEx: RegExp = /\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}/;
+    const birthdateRegEx: RegExp = /\d{4}\-\d{2}\-\d{2}/;
 
     if (!flightData.forename || !nameRegEx.test(flightData.forename.toString())) {
       bookingFormErrors.push("Saisissez un prénom valide d'au moins 3 caractères.");
@@ -161,7 +162,7 @@ if (bookingForm) {
       bookingFormErrors.push("Indiquez votre sexe.");
     }
 
-    if (!flightData.birthDate || !dateRegEx.test(flightData.birthDate.toString())) {
+    if (!flightData.birthDate || !birthdateRegEx.test(flightData.birthDate.toString())) {
       bookingFormErrors.push("Indiquez votre date de naissance." + flightData.birthDate?.toString());
     }
 
@@ -298,6 +299,7 @@ if (paymentForm && validateButton) {
       const card: PayCard = new PayCard(paymentData.cardNumber);
 
       if (cardValidityMessage) {
+        cardValidityMessage.classList.remove("hidden");
         if (card.isValid()) {
           cardValidityMessage.textContent = "✅";
           cardValidityMessage.style.color = "green";
@@ -388,6 +390,7 @@ if (paymentForm && validateButton) {
     summaryPage?.classList.add("hidden");
     paymentPage?.classList.add("hidden");
     paymentDetails?.classList.remove("hidden");
+    cardValidityMessage?.classList.add("hidden");
     paymentSummary?.classList.add("hidden");
     reservationNumberInputPage?.classList.add("hidden");
   });
