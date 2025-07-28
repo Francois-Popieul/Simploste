@@ -258,12 +258,12 @@ if (paymentForm && validateButton) {
     paymentData.CSV = formData.get("securityCode");
 
     const paymentFormErrors: HTMLElement | null = document.getElementById("paymentFormErrors");
-    // nettoie les anciennes erreurs 
+    // Nettoie les anciennes erreurs 
     if (paymentFormErrors) paymentFormErrors.innerHTML = "";
 
     let errorFound: boolean = false;
 
-    //verification name
+    // Vérification nom
     const nameRegEx: RegExp = /^[A-Za-zÀ-ÿ\s'-]{3,}$/;
     const cardHolder: string = paymentData.cardHolder?.toString().trim() || "";
 
@@ -276,7 +276,19 @@ if (paymentForm && validateButton) {
       errorFound = true;
     }
 
-    //Validation du numéro de carte et code secret
+    // Vérification date
+    const dateRegEx: RegExp = /^\d{4}-\d{2}$/;
+    const expiryDate: string = paymentData.expiryDate?.toString() || "";
+    if (!dateRegEx.test(expiryDate)) {
+      const errorText: HTMLParagraphElement = document.createElement("p");
+      errorText.textContent = "Indiquez la date d’expiration de la carte.";
+      errorText.style.color = "red";
+      errorText.style.zIndex = "1000";
+      paymentFormErrors?.appendChild(errorText);
+      errorFound = true;
+    }
+
+    // Validation du numéro de carte et code secret
     const cardNumber: string = paymentData.cardNumber?.toString().trim() || "";
     const csv: string = paymentData.CSV?.toString().trim() || "";
     const cardType: string | undefined = paymentData.cardType?.toString();
