@@ -222,7 +222,7 @@ if (paymentForm && validateButton) {
             paymentFormErrors.innerHTML = "";
         let errorFound = false;
         // Vérification nom
-        const nameRegEx = /^[A-Za-zÀ-ÿ\s'-]{3,}$/;
+        const nameRegEx = /^[A-Za-zÀ-ÿ\s'-]{3,}\s[A-Za-zÀ-ÿ\s'-]{3,}$/;
         const cardHolder = ((_a = paymentData.cardHolder) === null || _a === void 0 ? void 0 : _a.toString().trim()) || "";
         if (!nameRegEx.test(cardHolder)) {
             const errorText = document.createElement("p");

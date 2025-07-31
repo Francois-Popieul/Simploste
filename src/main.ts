@@ -264,7 +264,7 @@ if (paymentForm && validateButton) {
     let errorFound: boolean = false;
 
     // Vérification nom
-    const nameRegEx: RegExp = /^[A-Za-zÀ-ÿ\s'-]{3,}$/;
+    const nameRegEx: RegExp = /^[A-Za-zÀ-ÿ\s'-]{3,}\s[A-Za-zÀ-ÿ\s'-]{3,}$/;
     const cardHolder: string = paymentData.cardHolder?.toString().trim() || "";
 
     if (!nameRegEx.test(cardHolder)) {
